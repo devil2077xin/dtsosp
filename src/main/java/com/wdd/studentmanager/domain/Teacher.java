@@ -1,14 +1,9 @@
 package com.wdd.studentmanager.domain;
 
-/**
- * @Classname Teacher
- * @Description None
- * @Date 2019/6/28 18:55
- * @Created by WDD
- */
+
 public class Teacher {
     private int id;
-    private String sn;//学号
+    private String userid;//工号
     private String username;
     private String password;
     private int clazzId;
@@ -25,12 +20,12 @@ public class Teacher {
         this.id = id;
     }
 
-    public String getSn() {
-        return sn;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setSn(String sn) {
-        this.sn = sn;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String getUsername() {

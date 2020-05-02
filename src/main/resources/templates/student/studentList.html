@@ -32,7 +32,7 @@
 						[
 					{field:'chk',checkbox: true,width:50},
 					{field:'id',title:'ID',width:50, sortable: true},
-					{field:'sn',title:'学号',width:200, sortable: true},
+					{field:'userid',title:'学号',width:200, sortable: true},
 					{field:'username',title:'姓名',width:200},
 					{field:'sex',title:'性别',width:100},
 					{field:'mobile',title:'电话',width:150},
@@ -226,6 +226,7 @@
 											//关闭窗口
 											$("#addDialog").dialog("close");
 											//清空原表格数据
+                                            $("#add_userid").textbox('setValue', "");
 											$("#add_number").textbox('setValue', "");
 											$("#add_name").textbox('setValue', "");
 											$("#add_sex").textbox('setValue', "男");
@@ -253,7 +254,8 @@
 						plain: true,
 						iconCls:'icon-reload',
 						handler:function(){
-							$("#add_number").textbox('setValue', "");
+                            $("#add_userid").textbox('setValue', "");
+						    $("#add_number").textbox('setValue', "");
 							$("#add_name").textbox('setValue', "");
 							$("#add_phone").textbox('setValue', "");
 							$("#add_qq").textbox('setValue', "");
@@ -328,6 +330,7 @@
 						handler:function(){
 							//清空表单
 							$("#imgd div").remove();
+                            $("#edit_userid").textbox('setValue', "");
 							$("#edit_name").textbox('setValue', "");
 							$("#edit_sex").textbox('setValue', "男");
 							$("#edit_phone").textbox('setValue', "");
@@ -348,6 +351,7 @@
 							var imgUrl = data.imgurl;
 							var img = i + imgUrl;
 							//设置值
+                            $("#edit_userid").textbox('setValue', selectRow.userid);
 							$("#edit_name").textbox('setValue', selectRow.username);
 							$("#edit_sex").textbox('setValue', selectRow.sex);
 							$("#edit_mobile").textbox('setValue', selectRow.mobile);
@@ -492,6 +496,10 @@
 		<table cellpadding="8" >
 
 			<tr>
+				<td>学号:</td>
+				<td><input id="add_userid" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="userid" data-options="required:true, missingMessage:'请填写学号'" /></td>
+			</tr>
+			<tr>
 				<td>姓名:</td>
 				<td><input id="add_name" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="username" data-options="required:true, missingMessage:'请填写姓名'" /></td>
 			</tr>
@@ -517,11 +525,6 @@
 				<td>班级:</td>
 				<td><input id="add_clazzList" style="width: 200px; height: 30px;" class="easyui-textbox" name="clazzId" /></td>
 			</tr>
-			<tr>
-				<td>相片:</td>
-				<td><input onchange="filechange(event)" type="file" name="file" multiple></td>
-				<td><div id="imgDiv"></div></td>
-			</tr>
 		</table>
 	</form>
 </div>
@@ -541,6 +544,10 @@
 		<input type="hidden" name="id" id="edit-id">
 		<table cellpadding="8" >
 			<tr>
+				<td>学号:</td>
+				<td><input id="edit_userid" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="userid" data-options="required:true, missingMessage:'请填写学号'" /></td>
+			</tr>
+			<tr>
 				<td>姓名:</td>
 				<td><input id="edit_name" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="username" data-options="required:true, missingMessage:'请填写姓名'" /></td>
 			</tr>
@@ -559,11 +566,6 @@
 			<tr>
 				<td>班级:</td>
 				<td><input id="edit_clazzList" style="width: 200px; height: 30px;" class="easyui-textbox" name="clazzId" /></td>
-			</tr>
-			<tr>
-				<td>相片:</td>
-				<td><input onchange="filechange1(event)" type="file" name="file" multiple></td>
-				<td><div id="imgd"></div></td>
 			</tr>
 		</table>
 	</form>

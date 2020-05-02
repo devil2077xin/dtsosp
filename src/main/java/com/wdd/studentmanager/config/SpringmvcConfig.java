@@ -10,8 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @Classname SpringmvcConfig
  * @Description 扩展springmvc功能
- * @Date 2019/6/24 19:34
- * @Created by WDD
  */
 @Component
 public class SpringmvcConfig implements WebMvcConfigurer {

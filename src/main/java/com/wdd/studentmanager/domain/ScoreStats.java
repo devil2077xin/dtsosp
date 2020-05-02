@@ -3,8 +3,6 @@ package com.wdd.studentmanager.domain;
 /**
  * @Classname ScoreStats
  * @Description 成绩统计
- * @Date 2019/7/4 13:30
- * @Created by WDD
  */
 public class ScoreStats {
     private Double max_score;

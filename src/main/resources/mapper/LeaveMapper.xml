@@ -13,7 +13,7 @@
     <select id="queryList" resultMap="LeaveInfo" >
         <!-- 根据条件查询 图书的所有信息 -->
         SELECT *
-        from s_leave
+        from t_leave
         <where>
             <if test="studentId!=null"> and student_id = #{studentId} </if>
         </where>
@@ -21,31 +21,31 @@
     </select>
 
     <select id="queryCount" resultType="int" >
-        select count(*) from s_leave
+        select count(*) from t_leave
         <where>
             <if test="studentId!=null"> and student_id = #{studentId} </if>
         </where>
     </select>
 
     <insert id="addLeave" parameterType="Leave">
-        insert into s_leave(student_id,info)
+        insert into t_leave(student_id,info)
         values(#{studentId},#{info})
     </insert>
 
     <delete id="deleteLeave" parameterType="int">
-        delete from s_leave where id = #{id}
+        delete from t_leave where id = #{id}
     </delete>
 
     <update id="editLeave" parameterType="Leave">
-        update s_leave set student_id = #{studentId},info = #{info} where id = #{id}
+        update t_leave set student_id = #{studentId},info = #{info} where id = #{id}
     </update>
 
     <update id="checkLeave" parameterType="Leave">
-        update s_leave set student_id = #{studentId},info = #{info},status = #{status},remark = #{remark} where id = #{id}
+        update t_leave set student_id = #{studentId},info = #{info},status = #{status},remark = #{remark} where id = #{id}
     </update>
 
 <!--    <update id="addStudentNum" parameterType="int">-->
-<!--         update s_course-->
+<!--         update t_course-->
 <!--         set selected_num = (case-->
 <!--            when selected_num = max_num then 50-->
 <!--            when selected_num &lt; max_num then selected_num+1-->
@@ -55,14 +55,14 @@
 <!--    </update>-->
 
 <!--    <update id="deleteStudentNum" parameterType="int">-->
-<!--         update s_course-->
+<!--         update t_course-->
 <!--         set selected_num = selected_num-1-->
 <!--         where id = #{courseId}-->
 <!--    </update>-->
 
 <!--    <select id="getCourseById" parameterType="java.util.List" resultType="Course">-->
 <!--        select *-->
-<!--        from s_course-->
+<!--        from t_course-->
 <!--        <where>-->
 <!--            id in-->
 <!--            <foreach collection="list" open="(" close=")" separator="," item="id">-->

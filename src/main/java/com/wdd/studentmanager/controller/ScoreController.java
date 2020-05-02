@@ -31,12 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Classname ScoreController
- * @Description 成绩控制器
- * @Date 2019/7/3 11:38
- * @Created by WDD
- */
+
 @Controller
 @RequestMapping("/score")
 public class ScoreController {

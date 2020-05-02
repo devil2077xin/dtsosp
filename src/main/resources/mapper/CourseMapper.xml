@@ -15,7 +15,7 @@
     <select id="queryList" resultMap="CourseInfo" >
         <!-- 根据条件查询 图书的所有信息 -->
         SELECT *
-        from s_course
+        from t_course
         <where>
             <if test="name!=null"> and name LIKE concat("%",#{name},"%") </if>
             <if test="teacherId!=null"> and teacher_id LIKE concat("%",#{teacherId},"%") </if>
@@ -24,7 +24,7 @@
     </select>
 
     <select id="queryCount" resultType="int" >
-        select count(*) from s_course
+        select count(*) from t_course
         <where>
             <if test="name!=null"> and name LIKE concat("%",#{name},"%") </if>
             <if test="teacherId!=null"> and teacher_id LIKE concat("%",#{teacherId},"%") </if>
@@ -32,12 +32,12 @@
     </select>
 
     <insert id="addCourse" parameterType="Course">
-        insert into s_course(name,teacher_id,course_date,max_num,info)
+        insert into t_course(name,teacher_id,course_date,max_num,info)
         values(#{name},#{teacherId},#{courseDate},#{maxNum},#{info})
     </insert>
 
     <delete id="deleteCourse" parameterType="java.util.ArrayList">
-        delete from s_course
+        delete from t_course
         <where>
             id in
             <foreach collection="list" open="(" close=")" separator="," item="id">
@@ -47,11 +47,11 @@
     </delete>
 
     <update id="editCourse" parameterType="Course">
-        update s_course set name = #{name},teacher_id = #{teacherId},course_date = #{courseDate},max_num = #{maxNum},info = #{info} where id = #{id}
+        update t_course set name = #{name},teacher_id = #{teacherId},course_date = #{courseDate},max_num = #{maxNum},info = #{info} where id = #{id}
     </update>
 
     <update id="addStudentNum" parameterType="int">
-         update s_course
+         update t_course
          set selected_num = (case
             when selected_num = max_num then 50
             when selected_num &lt; max_num then selected_num+1
@@ -61,14 +61,14 @@
     </update>
 
     <update id="deleteStudentNum" parameterType="int">
-         update s_course
+         update t_course
          set selected_num = selected_num-1
          where id = #{courseId}
     </update>
 
     <select id="getCourseById" parameterType="java.util.List" resultType="Course">
         select *
-        from s_course
+        from t_course
         <where>
             id in
             <foreach collection="list" open="(" close=")" separator="," item="id">
@@ -78,7 +78,7 @@
     </select>
 
     <select id="findByName" parameterType="java.lang.String" resultType="int">
-        select id from s_course where name = #{name}
+        select id from t_course where name = #{name}
     </select>
 
 </mapper>

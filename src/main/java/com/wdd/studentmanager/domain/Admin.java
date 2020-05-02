@@ -1,10 +1,9 @@
 package com.wdd.studentmanager.domain;
 
-/**
- * 用户实体类
- */
+
 public class Admin {
 	private Long id;
+	private String userid;
 	private String username;
 	private String password;
 	public Long getId() {
@@ -12,6 +11,10 @@ public class Admin {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getUserid() { return userid; }
+	public void setUserid(String userid) {
+		this.username = userid;
 	}
 	public String getUsername() {
 		return username;

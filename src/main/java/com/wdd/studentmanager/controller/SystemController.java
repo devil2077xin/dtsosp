@@ -21,12 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-/**
- * @Classname SystemController
- * @Description None
- * @Date 2019/6/24 19:25
- * @Created by WDD
- */
+
 @Controller
 @RequestMapping("/system")
 public class SystemController {

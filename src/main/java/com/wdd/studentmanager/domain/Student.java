@@ -2,7 +2,7 @@ package com.wdd.studentmanager.domain;
 
 public class Student {
 	private int id;
-	private String sn;//学号
+	private String userid;//学号
 	private String username;
 	private String password;
 	private int clazzId;
@@ -19,12 +19,12 @@ public class Student {
 		this.id = id;
 	}
 
-	public String getSn() {
-		return sn;
+	public String getUserid() {
+		return userid;
 	}
 
-	public void setSn(String sn) {
-		this.sn = sn;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public String getUsername() {

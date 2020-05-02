@@ -15,12 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @Classname LeaveController
- * @Description 请假控制器
- * @Date 2019/7/2 15:43
- * @Created by WDD
- */
+
 @Controller
 @RequestMapping("/leave")
 public class LeaveController {

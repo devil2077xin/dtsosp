@@ -5,12 +5,7 @@ import com.wdd.studentmanager.util.PageBean;
 
 import java.util.Map;
 
-/**
- * @Classname LeaveService
- * @Description None
- * @Date 2019/7/2 15:54
- * @Created by WDD
- */
+
 public interface LeaveService {
     PageBean<Leave> queryPage(Map<String, Object> paramMap);
 

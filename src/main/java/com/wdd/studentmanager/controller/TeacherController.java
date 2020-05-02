@@ -19,12 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * @Classname TeacherController
- * @Description None
- * @Date 2019/6/28 18:49
- * @Created by WDD
- */
+
 @Controller
 @RequestMapping("/teacher")
 public class TeacherController {
@@ -91,12 +86,11 @@ public class TeacherController {
             File fileDir = UploadUtil.getImgDirFile();
             for(Integer id : data.getIds()){
                 Teacher byId = teacherService.findById(id);
-                if(!byId.getPhoto().isEmpty()){
                     File file = new File(fileDir.getAbsolutePath() + File.separator + byId.getPhoto());
                     if(file != null){
                         file.delete();
                     }
-                }
+
             }
             int count = teacherService.deleteTeacher(data.getIds());
             if(count > 0){
@@ -126,7 +120,6 @@ public class TeacherController {
     public AjaxResult addTeacher(@RequestParam("file") MultipartFile[] files, Teacher teacher) throws IOException {
 
         AjaxResult ajaxResult = new AjaxResult();
-        teacher.setSn(SnGenerateUtil.generateTeacherSn(teacher.getClazzId()));
 
         // 存放上传图片的文件夹
         File fileDir = UploadUtil.getImgDirFile();

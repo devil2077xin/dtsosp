@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>学生成绩管理系统 管理员后台</title>
+    <title>学生成绩动态追踪系统 管理员后台</title>
     <link rel="stylesheet" type="text/css" th:href="@{/easyui/css/default.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/easyui/themes/default/easyui.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/easyui/themes/icon.css}" />
@@ -34,21 +34,6 @@
                              {"menuid":"61","menuname":"课程列表","icon":"icon-book-open","url":/*[[@{/course/course_list}]]*/},
                          ]
                      },
-                     {"menuid":"7","icon":"","menuname":"选课信息管理",
-                         "menus":[
-                             {"menuid":"71","menuname":"选课列表","icon":"icon-book-open","url":/*[[@{/selectedCourse/selectedCourse_list}]]*/},
-                         ]
-                     },
-                     {"menuid":"8","icon":"","menuname":"考勤信息管理",
-                         "menus":[
-                             {"menuid":"81","menuname":"考勤列表","icon":"icon-book-open","url":/*[[@{/attendance/attendance_list}]]*/},
-                         ]
-                     },
-                     {"menuid":"9","icon":"","menuname":"请假信息管理",
-                         "menus":[
-                             {"menuid":"91","menuname":"请假列表","icon":"icon-book-open","url":/*[[@{/leave/leave_list}]]*/},
-                         ]
-                     },
                      {
                          "menuid": "10", "icon": "", "menuname": "成绩信息管理",
                          "menus": [
@@ -67,11 +52,6 @@
 
                          ]
                      },
-                     {"menuid":"5","icon":"","menuname":"系统管理",
-                         "menus":[
-                             {"menuid":"51","menuname":"修改密码","icon":"icon-set","url":/*[[@{/system/personalView}]]*/},
-                         ]
-                     }
                  ]};
          }
          if(usertype == "2"){
@@ -79,21 +59,6 @@
                      {"menuid":"2","icon":"","menuname":"学生信息管理",
                          "menus":[
                              {"menuid":"21","menuname":"学生列表","icon":"icon-user-student","url":/*[[@{/student/student_list}]]*/},
-                         ]
-                     },
-                     {"menuid":"7","icon":"","menuname":"选课信息管理",
-                         "menus":[
-                             {"menuid":"71","menuname":"选课列表","icon":"icon-book-open","url":/*[[@{/selectedCourse/selectedCourse_list}]]*/},
-                         ]
-                     },
-                     {"menuid":"8","icon":"","menuname":"考勤信息管理",
-                         "menus":[
-                             {"menuid":"81","menuname":"考勤列表","icon":"icon-book-open","url":/*[[@{/attendance/attendance_list}]]*/},
-                         ]
-                     },
-                     {"menuid":"9","icon":"","menuname":"请假信息管理",
-                         "menus":[
-                             {"menuid":"91","menuname":"请假列表","icon":"icon-book-open","url":/*[[@{/leave/leave_list}]]*/},
                          ]
                      },
                      {
@@ -107,11 +72,6 @@
                              }
                          ]
                      },
-                     {"menuid":"5","icon":"","menuname":"系统管理",
-                         "menus":[
-                             {"menuid":"51","menuname":"修改密码","icon":"icon-set","url":/*[[@{/system/personalView}]]*/},
-                         ]
-                     }
                  ]};
          }
 
@@ -132,10 +92,10 @@
             您好&nbsp;&nbsp;&nbsp;
             <a th:href="@{/system/logout}" id="loginOut">安全退出</a>
         </span>
-        <span style="padding-left:10px; font-size: 16px; ">学生信息管理系统</span>
+        <span style="padding-left:10px; font-size: 16px; ">学生成绩动态追踪系统</span>
     </div>
     <div region="south" split="true" style="height: 30px; background: #D2E0F2; ">
-        <div class="footer">1710031565@qq.com</div>
+        <div class="footer">devil2077xin@126.com</div>
     </div>
     <div region="west" hide="true" split="true" title="导航菜单" style="width:180px;" id="west">
 	<div id="nav" class="easyui-accordion" fit="true" border="false">

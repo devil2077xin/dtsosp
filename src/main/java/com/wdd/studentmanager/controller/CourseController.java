@@ -13,12 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @Classname CourseController
- * @Description None
- * @Date 2019/6/29 20:02
- * @Created by WDD
- */
+
 @Controller
 @RequestMapping("/course")
 public class CourseController {

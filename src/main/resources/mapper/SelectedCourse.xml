@@ -11,7 +11,7 @@
     <select id="queryList" resultMap="SelectedCourseInfo" >
         <!-- 根据条件查询 图书的所有信息 -->
         SELECT *
-        from s_selected_course
+        from t_selected_course
         <where>
             <if test="studentId!=null"> and student_id LIKE concat("%",#{studentId},"%") </if>
             <if test="courseId!=null"> and course_id LIKE concat("%",#{courseId},"%") </if>
@@ -21,7 +21,7 @@
     </select>
 
     <select id="queryCount" resultType="int" >
-        select count(*) from s_selected_course
+        select count(*) from t_selected_course
         <where>
             <if test="studentId!=null"> and student_id LIKE concat("%",#{studentId},"%") </if>
             <if test="courseId!=null"> and course_id LIKE concat("%",#{courseId},"%") </if>
@@ -30,31 +30,31 @@
     </select>
 
     <insert id="addSelectedCourse" parameterType="SelectedCourse">
-        insert into s_selected_course(student_id,course_id)
+        insert into t_selected_course(student_id,course_id)
         values(#{studentId},#{courseId})
     </insert>
 
     <delete id="deleteSelectedCourse" parameterType="int">
-        delete from s_selected_course where id = #{id}
+        delete from t_selected_course where id = #{id}
     </delete>
 
     <select id="findById" parameterType="int" resultMap="SelectedCourseInfo" >
-        select  * from s_selected_course where id = #{id}
+        select  * from t_selected_course where id = #{id}
     </select>
 
 
     <select id="findBySelectedCourse" parameterType="SelectedCourse" resultMap="SelectedCourseInfo" >
-        select * from s_selected_course
+        select * from t_selected_course
         where student_id = #{studentId} and course_id = #{courseId}
     </select>
 
     <select id="isStudentId" parameterType="int" resultMap="SelectedCourseInfo" >
-        select * from s_selected_course
+        select * from t_selected_course
         where student_id = #{id}
     </select>
 
     <select id="getAllBySid" parameterType="int" resultMap="SelectedCourseInfo" >
-        select * from s_selected_course
+        select * from t_selected_course
         where student_id = #{studentid}
     </select>
 </mapper>

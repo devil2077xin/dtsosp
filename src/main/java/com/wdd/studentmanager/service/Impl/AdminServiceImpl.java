@@ -6,12 +6,7 @@ import com.wdd.studentmanager.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * @Classname UserServiceImpl
- * @Description None
- * @Date 2019/6/25 11:08
- * @Created by WDD
- */
+
 @Service
 public class AdminServiceImpl implements AdminService {
 

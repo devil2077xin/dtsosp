@@ -15,12 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @Classname SelectedCourseController
- * @Description 选课信息控制器
- * @Date 2019/6/30 10:39
- * @Created by WDD
- */
+
 @Controller
 @RequestMapping("/selectedCourse")
 public class SelectedCourseController {

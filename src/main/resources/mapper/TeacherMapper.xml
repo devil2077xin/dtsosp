@@ -4,7 +4,7 @@
 
     <resultMap type="com.wdd.studentmanager.domain.Teacher" id="TeacherInfo">
         <result column="id" property="id"/>
-        <result column="sn" property="sn"/>
+        <result column="userid" property="userid"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
         <result column="clazz_id" property="clazzId"/>
@@ -17,7 +17,7 @@
     <select id="queryList" resultMap="TeacherInfo" >
         <!-- 根据条件查询 图书的所有信息 -->
         SELECT *
-        from s_teacher
+        from t_teacher
         <where>
             <if test="username!=null"> and username LIKE concat("%",#{username},"%") </if>
             <if test="clazzid!=null"> and clazz_id LIKE concat("%",#{clazzid},"%") </if>
@@ -27,7 +27,7 @@
     </select>
 
     <select id="queryCount" resultType="int" >
-        select count(*) from s_teacher
+        select count(*) from t_teacher
         <where>
             <if test="username!=null"> and username LIKE concat("%",#{username},"%") </if>
             <if test="clazzid!=null"> and clazz_id LIKE concat("%",#{clazzid},"%") </if>
@@ -36,12 +36,12 @@
     </select>
 
     <insert id="addTeacher" parameterType="Teacher">
-        insert into s_teacher(sn,username,password,clazz_id,sex,mobile,qq,photo)
-        values(#{sn},#{username},#{password},#{clazzId},#{sex},#{mobile},#{qq},#{photo})
+        insert into t_teacher(userid,username,password,clazz_id,sex,mobile,qq,photo)
+        values(#{userid},#{username},#{password},#{clazzId},#{sex},#{mobile},#{qq},#{photo})
     </insert>
 
     <delete id="deleteTeacher" parameterType="java.util.ArrayList">
-        delete from s_teacher
+        delete from t_teacher
         <where>
             id in
             <foreach collection="list" open="(" close=")" separator="," item="id">
@@ -51,8 +51,11 @@
     </delete>
 
     <update id="editTeacher" parameterType="Teacher">
-        update s_teacher
+        update t_teacher
         <set>
+            <if test="userid != null">
+                userid = #{userid},
+            </if>
             <if test="username != null">
                 username = #{username},
             </if>
@@ -68,9 +71,6 @@
             <if test="qq != null">
                 qq = #{qq},
             </if>
-            <if test="photo != null">
-                photo = #{photo},
-            </if>
         </set>
         where id = #{id}
 
@@ -78,15 +78,15 @@
 
 
     <select id="findById" parameterType="int" resultType="Teacher">
-        select * from s_teacher where id = #{tid}
+        select * from t_teacher where id = #{tid}
     </select>
 
 
     <select id="findByTeacher" parameterType="Teacher" resultType="Teacher">
-        select * from s_teacher where username = #{username} and password = #{password}
+        select * from t_teacher where username = #{username} and password = #{password}
     </select>
 
     <update id="editPswdByTeacher" parameterType="Teacher">
-        update  s_teacher set password = #{password} where id = #{id}
+        update  t_teacher set password = #{password} where id = #{id}
     </update>
 </mapper>

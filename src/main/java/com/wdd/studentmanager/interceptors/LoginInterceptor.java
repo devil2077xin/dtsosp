@@ -14,8 +14,6 @@ import java.io.IOException;
 /**
  * @Classname LoginInterceptor
  * @Description 登录拦截器
- * @Date 2019/6/25 16:09
- * @Created by WDD
  */
 public class LoginInterceptor implements HandlerInterceptor {
     @Override

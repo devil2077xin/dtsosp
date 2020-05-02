@@ -4,7 +4,7 @@
 
     <resultMap type="com.wdd.studentmanager.domain.Student" id="StudentInfo">
         <result column="id" property="id"/>
-        <result column="sn" property="sn"/>
+        <result column="userid" property="userid"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
         <result column="clazz_id" property="clazzId"/>
@@ -17,7 +17,7 @@
     <select id="queryList" resultMap="StudentInfo" >
         <!-- 根据条件查询 图书的所有信息 -->
         SELECT *
-        from s_student
+        from t_student
         <where>
             <if test="username!=null"> and username LIKE concat("%",#{username},"%") </if>
             <if test="clazzid!=null"> and clazz_id LIKE concat("%",#{clazzid},"%") </if>
@@ -27,7 +27,7 @@
     </select>
 
     <select id="queryCount" resultType="int" >
-        select count(*) from s_student
+        select count(*) from t_student
         <where>
             <if test="username!=null"> and username LIKE concat("%",#{username},"%") </if>
             <if test="clazzid!=null"> and clazz_id LIKE concat("%",#{clazzid},"%") </if>
@@ -36,12 +36,12 @@
     </select>
 
     <insert id="addStudent" parameterType="Student">
-        insert into s_student(sn,username,password,clazz_id,sex,mobile,qq,photo)
-        values(#{sn},#{username},#{password},#{clazzId},#{sex},#{mobile},#{qq},#{photo})
+        insert into t_student(userid,username,password,clazz_id,sex,mobile,qq,photo)
+        values(#{userid},#{username},#{password},#{clazzId},#{sex},#{mobile},#{qq},#{photo})
     </insert>
 
     <delete id="deleteStudent" parameterType="java.util.ArrayList">
-        delete from s_student
+        delete from t_student
         <where>
             id in
             <foreach collection="list" open="(" close=")" separator="," item="id">
@@ -51,8 +51,11 @@
     </delete>
 
     <update id="editStudent" parameterType="Student">
-        update s_student
+        update t_student
         <set>
+            <if test="userid != null">
+                userid = #{userid},
+            </if>
             <if test="username != null">
                 username = #{username},
             </if>
@@ -77,23 +80,23 @@
 
 
     <select id="findById" parameterType="int" resultType="Student">
-        select * from s_student where id = #{sid}
+        select * from t_student where id = #{sid}
     </select>
 
     <select id="findByStudent" parameterType="Student" resultType="Student">
-        select * from s_student where username = #{username} and password = #{password}
+        select * from t_student where username = #{username} and password = #{password}
     </select>
 
     <select id="isStudentByClazzId" parameterType="int" resultMap="StudentInfo">
-        select * from s_student where clazz_id = #{id}
+        select * from t_student where clazz_id = #{id}
     </select>
 
     <update id="editPswdByStudent" parameterType="Student">
-        update  s_student set password = #{password} where id = #{id}
+        update  t_student set password = #{password} where id = #{id}
     </update>
 
     <select id="findByName" parameterType="java.lang.String" resultType="int">
-        select id from s_student where username = #{name}
+        select id from t_student where username = #{name}
     </select>
 
 </mapper>

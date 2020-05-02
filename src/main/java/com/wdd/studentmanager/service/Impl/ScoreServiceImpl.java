@@ -11,12 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Classname ScoreServiceImpl
- * @Description None
- * @Date 2019/7/3 11:45
- * @Created by WDD
- */
+
 @Service
 public class ScoreServiceImpl implements ScoreService {
 

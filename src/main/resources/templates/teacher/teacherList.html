@@ -34,7 +34,7 @@
 						[
 					{field:'chk',checkbox: true,width:50},
 					{field:'id',title:'ID',width:50, sortable: true},
-					{field:'sn',title:'工号',width:150, sortable: true},
+					{field:'userid',title:'工号',width:150, sortable: true},
 					{field:'username',title:'姓名',width:150},
 					{field:'sex',title:'性别',width:100},
 					{field:'mobile',title:'电话',width:150},
@@ -180,6 +180,7 @@
 											//关闭窗口
 											$("#addDialog").dialog("close");
 											//清空原表格数据
+                                            $("#add_userid").textbox('setValue', "");
 											$("#add_number").textbox('setValue', "");
 											$("#add_name").textbox('setValue', "");
 											$("#add_sex").textbox('setValue', "男");
@@ -204,7 +205,8 @@
 						plain: true,
 						iconCls:'icon-reload',
 						handler:function(){
-							$("#add_number").textbox('setValue', "");
+                            $("#add_userid").textbox('setValue', "");
+						    $("#add_number").textbox('setValue', "");
 							$("#add_name").textbox('setValue', "");
 							$("#add_phone").textbox('setValue', "");
 							$("#add_qq").textbox('setValue', "");
@@ -215,7 +217,8 @@
 					},
 				],
 				onClose: function(){
-					$("#add_number").textbox('setValue', "");
+                    $("#add_userid").textbox('setValue', "");
+				    $("#add_number").textbox('setValue', "");
 					$("#add_name").textbox('setValue', "");
 					$("#add_phone").textbox('setValue', "");
 					$("#add_qq").textbox('setValue', "");
@@ -306,6 +309,7 @@
 											//关闭窗口
 											$("#editDialog").dialog("close");
 											//清空原表格数据
+                                            $("#edit_name").textbox('setValue', "");
 											$("#edit_name").textbox('setValue', "");
 											$("#edit_sex").textbox('setValue', "男");
 											$("#edit_phone").textbox('setValue', "");
@@ -329,7 +333,8 @@
 						plain: true,
 						iconCls:'icon-reload',
 						handler:function(){
-							$("#edit_name").textbox('setValue', "");
+                            $("#edit_userid").textbox('setValue', "");
+						    $("#edit_name").textbox('setValue', "");
 							$("#edit_phone").textbox('setValue', "");
 							$("#edit_qq").textbox('setValue', "");
 
@@ -350,6 +355,7 @@
 							var imgUrl = data.imgurl;
 							var img = i + imgUrl;
 							//设置值
+                            $("#edit_userid").textbox('setValue', selectRow.userid);
 							$("#edit_name").textbox('setValue', selectRow.username);
 							$("#edit_sex").textbox('setValue', selectRow.sex);
 							$("#edit_phone").textbox('setValue', selectRow.mobile);
@@ -498,6 +504,10 @@
 				<td style="width:80px"></td>
 			</tr>
 			<tr>
+				<td>工号:</td>
+				<td colspan="4"><input id="add_userid" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="userid" data-options="required:true, missingMessage:'请填写工号'" /></td>
+			</tr>
+			<tr>
 				<td>姓名:</td>
 				<td colspan="4"><input id="add_name" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="username" data-options="required:true, missingMessage:'请填写姓名'" /></td>
 			</tr>
@@ -517,11 +527,7 @@
 				<td>QQ:</td>
 				<td colspan="4"><input id="add_qq" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="qq" validType="number" /></td>
 			</tr>
-			<tr>
-				<td>相片:</td>
-				<td><input onchange="filechange(event)" type="file" name="file" multiple></td>
-				<td><div id="imgDiv"></div></td>
-			</tr>
+
 		</table>
 	</form>
 </div>
@@ -548,6 +554,10 @@
 				<td style="width:80px"></td>
 			</tr>
 			<tr>
+				<td>工号:</td>
+				<td><input id="edit_userid" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="userid" data-options="required:true, missingMessage:'请填写工号'" /></td>
+			</tr>
+			<tr>
 				<td>姓名:</td>
 				<td><input id="edit_name" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="username" data-options="required:true, missingMessage:'请填写姓名'" /></td>
 			</tr>
@@ -562,11 +572,6 @@
 			<tr>
 				<td>QQ:</td>
 				<td colspan="4"><input id="edit_qq" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="qq" validType="number" /></td>
-			</tr>
-			<tr>
-				<td>相片:</td>
-				<td><input onchange="filechange1(event)" type="file" name="file" multiple></td>
-				<td><div id="imgd"></div></td>
 			</tr>
 		</table>
 	</form>
