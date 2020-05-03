@@ -8,10 +8,10 @@
         <version>2.0.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.wdd.studentmanager</groupId>
-    <artifactId>studentmanager</artifactId>
+    <groupId>com.edu.dtsosp</groupId>
+    <artifactId>dtsosp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>studentmanager</name>
+    <name>dtsosp</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
