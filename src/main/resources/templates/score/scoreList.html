@@ -32,7 +32,7 @@
                     [
                     {field:'chk',checkbox: true,width:50},
                     {field:'id',title:'ID',width:50},
-                    {field:'studentId',title:'学生',width:200,
+                    {field:'studentId',title:'学生',width:50,
                         formatter: function(value,row,index){
                             if (row.studentId){
                                 var studentList = $("#studentList").combobox("getData");
@@ -46,21 +46,12 @@
                             }
                         }
                     },
-                    {field:'courseId',title:'课程',width:200,
-                        formatter: function(value,row,index){
-                            if (row.courseId){
-                                var courseList = $("#courseList").combobox("getData");
-                                for(var i=0;i<courseList.length;i++ ){
-                                    //console.log(clazzList[i]);
-                                    if(row.courseId == courseList[i].id)return courseList[i].name;
-                                }
-                                return row.courseId;
-                            } else {
-                                return 'not found';
-                            }
-                        }
-                    },
-                    {field:'score',title:'成绩',width:200},
+                    {field:'score1',title:'成绩1',width:50},
+                    {field:'score2',title:'成绩2',width:50},
+                    {field:'score3',title:'成绩3',width:50},
+                    {field:'score4',title:'成绩4',width:50},
+                    {field:'score5',title:'成绩5',width:50},
+                    {field:'score6',title:'成绩6',width:50},
                     {field:'remark',title:'备注',width:200}
                     ]
                 ],
@@ -84,17 +75,6 @@
                     editable: false, //不可编辑
                     method: "post",
                     url: [[@{/student/getStudentList(from=combox)}]],
-
-                });
-                $("#courseList").combobox({
-                    width: "150",
-                    height: "25",
-                    valueField: "id",
-                    textField: "name",
-                    multiple: false, //可多选
-                    editable: false, //不可编辑
-                    method: "post",
-                    url: [[@{/course/getCourseList(from=combox)}]],
 
                 });
             }
@@ -275,12 +255,13 @@
                     var selectRow = $("#dataList").datagrid("getSelected");
                     //设置值
                     $("#edit_studentList").combobox('setValue', selectRow.studentId);
-                    $("#edit_courseList").combobox('setValue', selectRow.courseid);
-                    $("#edit_score").numberbox('setValue', selectRow.score);
+                    $("#edit_score1").numberbox('setValue', selectRow.score1);
+                    $("#edit_score2").numberbox('setValue', selectRow.score2);
+                    $("#edit_score3").numberbox('setValue', selectRow.score3);
+                    $("#edit_score4").numberbox('setValue', selectRow.score4);
+                    $("#edit_score5").numberbox('setValue', selectRow.score5);
+                    $("#edit_score6").numberbox('setValue', selectRow.score6);
                     $("#edit_remark").textbox('setValue', selectRow.remark);
-                    setTimeout(function(){
-                        $("#edit_courseList").combobox('setValue', selectRow.courseId);
-                    }, 100);
 
                 }
             });
@@ -317,15 +298,6 @@
             });
 
             //下拉框通用属性
-            $("#add_courseList,#courseList,#edit_courseList").combobox({
-                width: "200",
-                height: "30",
-                valueField: "id",
-                textField: "name",
-                multiple: false, //不可多选
-                editable: false, //不可编辑
-                method: "post",
-            });
             $("#add_studentList,#studentList,#edit_studentList").combobox({
                 width: "200",
                 height: "30",
@@ -349,19 +321,7 @@
                 }
             });
 
-            //添加信息课程选择框
-            function getStudentSelectedCourseList(sid){
-                //添加信息课程选择框
-                var u = [[@{/attendance/getStudentSelectedCourseList}]];
-                $("#add_courseList").combobox({
-                    url:u+"?studentid="+sid,
-                    onLoadSuccess: function(){
-                        //默认选择第一条数据
-                        var data = $(this).combobox("getData");
-                        $(this).combobox("setValue", data[0].id);
-                    }
-                });
-            }
+
 
             //修改信息学生选择框
             $("#edit_studentList").combobox({
@@ -376,31 +336,19 @@
                     getEditStudentSelectedCourseList(id);
                 }
             });
-            function getEditStudentSelectedCourseList(studentId){
-                //修改信息课程选择框
-                $("#edit_courseList").combobox({
-                    url: [[@{/attendance/getStudentSelectedCourseList}]]+"&studentid="+studentId,
-                    onLoadSuccess: function(){
-                        //默认选择第一条数据
-                        var data = $(this).combobox("getData");
-                        $(this).combobox("setValue", data[0].id);
-                    }
-                });
-            }
+
 
             //搜索按钮监听事件
             $("#search-btn").click(function(){
                 $('#dataList').datagrid('load',{
                     studentid: $("#studentList").combobox('getValue') == '' ? 0 : $("#studentList").combobox('getValue'),
-                    courseid: $("#courseList").combobox('getValue') == '' ? 0 : $("#courseList").combobox('getValue')
                 });
             });
 
             //导出按钮监听事件
             $("#export").click(function(){
                 studentid = $("#studentList").combobox('getValue') == '' ? 0 : $("#studentList").combobox('getValue');
-                courseid = $("#courseList").combobox('getValue') == '' ? 0 : $("#courseList").combobox('getValue');
-                url = [[@{/score/exportScore}]] + "?studentId=" + studentid + "&courseId="+courseid;
+                url = [[@{/score/exportScore}]] + "?studentId=" + studentid ;
                 window.location.href = url;
             });
 
@@ -408,7 +356,6 @@
             $("#clear-btn").click(function(){
                 $('#dataList').datagrid("reload",{});
                 $("#studentList").combobox('clear');
-                $("#courseList").combobox('clear');
             });
 
             function importScore(){
@@ -437,7 +384,7 @@
 <div id="toolbar">
         <div th:if="${session.usertype == '1' || session.usertype == '3'}" style="float: left;"><a id="add" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a></div>
         <div style="float: left;" class="datagrid-btn-separator"></div>
-        <div style="float: left;"><a id="import" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">导入</a></div>
+        <div th:if="${session.usertype == '1' || session.usertype == '3'}" style="float: left;"><a id="import" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">导入</a></div>
         <div style="float: left;" class="datagrid-btn-separator"></div>
         <div style="float: left;"><a id="export" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">导出</a></div>
         <div style="float: left;" class="datagrid-btn-separator"></div>
@@ -447,7 +394,6 @@
         <div style="float: left;" class="datagrid-btn-separator"></div>
     <div style="margin-top: 3px;">
         学生：<input id="studentList" class="easyui-textbox" name="studentList" />
-        课程：<input id="courseList" class="easyui-textbox" name="courseList" />
         <a id="search-btn" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
         <a id="clear-btn" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">清空搜索</a>
     </div>
@@ -465,17 +411,44 @@
                 <td style="width:80px"></td>
             </tr>
             <tr>
-                <td style="width:40px">课程:</td>
+                <td style="width:40px">成绩1:</td>
                 <td colspan="3">
-                    <input id="add_courseList" style="width: 200px; height: 30px;" class="easyui-textbox" name="courseId" data-options="required:true, missingMessage:'请选择课程'" />
+                    <input id="add_score1" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score1" />
                 </td>
                 <td style="width:80px"></td>
             </tr>
-
             <tr>
-                <td style="width:40px">成绩:</td>
+                <td style="width:40px">成绩2:</td>
                 <td colspan="3">
-                    <input id="add_score" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score" />
+                    <input id="add_score2" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score2" />
+                </td>
+                <td style="width:80px"></td>
+            </tr>
+            <tr>
+                <td style="width:40px">成绩3:</td>
+                <td colspan="3">
+                    <input id="add_score3" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score3" />
+                </td>
+                <td style="width:80px"></td>
+            </tr>
+            <tr>
+                <td style="width:40px">成绩4:</td>
+                <td colspan="3">
+                    <input id="add_score4" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score4" />
+                </td>
+                <td style="width:80px"></td>
+            </tr>
+            <tr>
+                <td style="width:40px">成绩5:</td>
+                <td colspan="3">
+                    <input id="add_score5" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score5" />
+                </td>
+                <td style="width:80px"></td>
+            </tr>
+            <tr>
+                <td style="width:40px">成绩6:</td>
+                <td colspan="3">
+                    <input id="add_score6" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score6" />
                 </td>
                 <td style="width:80px"></td>
             </tr>
@@ -503,21 +476,50 @@
                 </td>
                 <td style="width:80px"></td>
             </tr>
+
             <tr>
-                <td style="width:40px">课程:</td>
+                <td style="width:40px">成绩1:</td>
                 <td colspan="3">
-                    <input id="edit_courseList" style="width: 200px; height: 30px;" class="easyui-textbox" name="courseId" data-options="required:true, missingMessage:'请选择课程'" />
+                    <input id="edit_score1" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score1" />
+                </td>
+                <td style="width:80px"></td>
+            </tr>
+            <tr>
+                <td style="width:40px">成绩2:</td>
+                <td colspan="3">
+                    <input id="edit_score2" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score2" />
+                </td>
+                <td style="width:80px"></td>
+            </tr>
+            <tr>
+                <td style="width:40px">成绩3:</td>
+                <td colspan="3">
+                    <input id="edit_score3" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score3" />
+                </td>
+                <td style="width:80px"></td>
+            </tr>
+            <tr>
+                <td style="width:40px">成绩4:</td>
+                <td colspan="3">
+                    <input id="edit_score4" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score4" />
+                </td>
+                <td style="width:80px"></td>
+            </tr>
+            <tr>
+                <td style="width:40px">成绩5:</td>
+                <td colspan="3">
+                    <input id="edit_score5" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score5" />
+                </td>
+                <td style="width:80px"></td>
+            </tr>
+            <tr>
+                <td style="width:40px">成绩6:</td>
+                <td colspan="3">
+                    <input id="edit_score6" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score6" />
                 </td>
                 <td style="width:80px"></td>
             </tr>
 
-            <tr>
-                <td style="width:40px">成绩:</td>
-                <td colspan="3">
-                    <input id="edit_score" style="width: 200px; height: 30px;" class="easyui-numberbox" data-options="required:true,min:0,precision:2, missingMessage:'请填写正确的成绩'" name="score" />
-                </td>
-                <td style="width:80px"></td>
-            </tr>
 
             <tr>
                 <td>备注:</td>

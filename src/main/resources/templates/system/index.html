@@ -24,6 +24,7 @@
                              {"menuid":"42","menuname":"班级列表","icon":"icon-house","url":/*[[@{/clazz/clazz_list}]]*/}
                          ]
                      },
+
                      {"menuid":"3","icon":"","menuname":"教师信息管理",
                          "menus":[
                              {"menuid":"31","menuname":"教师列表","icon":"icon-user-teacher","url":/*[[@{/teacher/teacher_list}]]*/},
@@ -42,9 +43,14 @@
                                  "menuid": "101",
                                  "menuname": "成绩统计",
                                  "icon": "icon-book-open",
-                                 "url": /*[[@{/score/scoreStats}]]*/
+                                 "url": /*[[@{/score/score_list}]]*/
                              },
 
+                         ]
+                     },
+                     {"menuid":"6","icon":"","menuname":"成绩动态追踪",
+                         "menus":[
+                             {"menuid":"61","menuname":"追踪成绩","icon":"icon-user-teacher","url": /*[[@{/score/score_list}]]*/},
                          ]
                      },
                  ]};
@@ -57,14 +63,25 @@
                          ]
                      },
                      {
-                         "menuid": "10", "icon": "", "menuname": "成绩信息管理",
+                         "menuid": "10", "icon": "", "menuname": "成绩信息查看",
                          "menus": [
                              {
                                  "menuid": "101",
                                  "menuname": "成绩列表",
                                  "icon": "icon-book-open",
                                  "url": /*[[@{/score/score_list}]]*/
-                             }
+                             },
+                             {
+                                 "menuid": "101",
+                                 "menuname": "成绩统计",
+                                 "icon": "icon-book-open",
+                                 "url": /*[[@{/score/score_list}]]*/
+                             },
+                         ]
+                     },
+                     {"menuid":"6","icon":"","menuname":"成绩动态追踪",
+                         "menus":[
+                             {"menuid":"61","menuname":"追踪成绩","icon":"icon-user-teacher","url": /*[[@{/score/score_list}]]*/},
                          ]
                      },
                  ]};

@@ -62,8 +62,4 @@ public class ScoreServiceImpl implements ScoreService {
         return scoreMapper.getAll(score);
     }
 
-    @Override
-    public ScoreStats getAvgStats(Integer courseid) {
-        return scoreMapper.getAvgStats(courseid);
-    }
 }

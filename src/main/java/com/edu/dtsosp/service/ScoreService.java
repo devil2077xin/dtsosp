@@ -20,6 +20,4 @@ public interface ScoreService {
     int deleteScore(Integer id);
 
     List<Score> getAll(Score score);
-
-    ScoreStats getAvgStats(Integer courseid);
 }

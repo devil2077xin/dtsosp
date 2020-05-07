@@ -22,5 +22,4 @@ public interface ScoreMapper {
 
     List<Score> getAll(Score score);
 
-    ScoreStats getAvgStats(Integer courseid);
 }

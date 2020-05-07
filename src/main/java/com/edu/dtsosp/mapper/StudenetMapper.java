@@ -23,6 +23,8 @@ public interface StudenetMapper {
 
     List<Student> isStudentByClazzId(Integer id);
 
+    List<Student> isStudentByTermId(Integer id);
+
     int editPswdByStudent(Student student);
 
     int findByName(String name);

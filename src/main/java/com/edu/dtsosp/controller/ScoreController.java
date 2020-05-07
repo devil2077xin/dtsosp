@@ -40,10 +40,7 @@ public class ScoreController {
     private ScoreService scoreService;
     @Autowired
     private StudentService studentService;
-    @Autowired
-    private CourseService courseService;
-    @Autowired
-    private SelectedCourseService selectedCourseService;
+
 
 
     @GetMapping("/score_list")
@@ -57,7 +54,6 @@ public class ScoreController {
      * @param page
      * @param rows
      * @param studentid
-     * @param courseid
      * @param from
      * @param session
      * @return
@@ -67,13 +63,13 @@ public class ScoreController {
     public Object getScoreList(@RequestParam(value = "page", defaultValue = "1")Integer page,
                                     @RequestParam(value = "rows", defaultValue = "100")Integer rows,
                                     @RequestParam(value = "studentid", defaultValue = "0")String studentid,
-                                    @RequestParam(value = "courseid", defaultValue = "0")String courseid,
+                                   // @RequestParam(value = "termid", defaultValue = "0")String termid,
                                     String from, HttpSession session){
         Map<String,Object> paramMap = new HashMap();
         paramMap.put("pageno",page);
         paramMap.put("pagesize",rows);
         if(!studentid.equals("0"))  paramMap.put("studentid",studentid);
-        if(!courseid.equals("0"))  paramMap.put("courseid",courseid);
+       // if(!termid.equals("0"))  paramMap.put("termid",termid);
 
         //判断是老师还是学生权限
         Student student = (Student) session.getAttribute(Const.STUDENT);
@@ -221,12 +217,12 @@ public class ScoreController {
                 //将学生，课程转换为id,存入数据库
                 // 1)首先获取对应的id
                 int studentId = studentService.findByName(row.getCell(0).getStringCellValue());
-                int courseId = courseService.findByName(row.getCell(1).getStringCellValue());
+                //int courseId = termService.findByName(row.getCell(1).getStringCellValue());
                 // 2)判断是否已存在数据库中
                 Score score = new Score();
                 score.setStudentId(studentId);
-                score.setCourseId(courseId);
-                score.setScore(scoreValue);
+                //score.setTermId(termId);
+                score.setScore1(scoreValue);
                 score.setRemark(remark);
                 if(!scoreService.isScore(score)){
                     // 3)存入数据库
@@ -278,16 +274,16 @@ public class ScoreController {
             XSSFSheet createSheet = xssfWorkbook.createSheet("成绩列表");
             XSSFRow createRow = createSheet.createRow(0);
             createRow.createCell(0).setCellValue("学生");
-            createRow.createCell(1).setCellValue("课程");
-            createRow.createCell(2).setCellValue("成绩");
+            createRow.createCell(1).setCellValue("学期");
+            createRow.createCell(2).setCellValue("成绩1");
             createRow.createCell(3).setCellValue("备注");
             //实现将数据装入到excel文件中
             int row = 1;
             for( Score s:scoreList){
                 createRow = createSheet.createRow(row++);
                 createRow.createCell(0).setCellValue(s.getStudentName());
-                createRow.createCell(1).setCellValue(s.getCourseName());
-                createRow.createCell(2).setCellValue(s.getScore());
+               // createRow.createCell(1).setCellValue(s.getTermId());
+                createRow.createCell(2).setCellValue(s.getScore1());
                 createRow.createCell(3).setCellValue(s.getRemark());
             }
             xssfWorkbook.write(outputStream);
@@ -296,103 +292,6 @@ public class ScoreController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-    /**
-     * 跳转统计页面
-     * @return
-     */
-    @RequestMapping("/scoreStats")
-    public String scoreStats(){
-        return "/score/scoreStats";
-    }
-
-
-    /**
-     * 统计成绩数据
-     * @param courseid
-     * @param searchType
-     * @return
-     */
-    @RequestMapping("/getScoreStatsList")
-    @ResponseBody
-    public Object getScoreStatsList(@RequestParam(value = "courseid", defaultValue = "0")Integer courseid,
-                                        String searchType){
-        AjaxResult ajaxResult = new AjaxResult();
-        if(searchType.equals("avg")){
-            ScoreStats scoreStats = scoreService.getAvgStats(courseid);
-
-            List<Double> scoreList = new ArrayList<Double>();
-            scoreList.add(scoreStats.getMax_score());
-            scoreList.add(scoreStats.getMin_score());
-            scoreList.add(scoreStats.getAvg_score());
-
-            List<String> avgStringList = new ArrayList<String>();
-            avgStringList.add("最高分");
-            avgStringList.add("最低分");
-            avgStringList.add("平均分");
-
-            Map<String, Object> retMap = new HashMap<String, Object>();
-            retMap.put("courseName", scoreStats.getCourseName());
-            retMap.put("scoreList", scoreList);
-            retMap.put("avgList", avgStringList);
-            retMap.put("type", "success");
-
-            return retMap;
-        }
-
-        Score score = new Score();
-        score.setCourseId(courseid);
-        List<Score> scoreList = scoreService.getAll(score);
-
-
-        List<Integer> numberList = new ArrayList<Integer>();
-        numberList.add(0);
-        numberList.add(0);
-        numberList.add(0);
-        numberList.add(0);
-        numberList.add(0);
-
-        List<String> rangeStringList = new ArrayList<String>();
-        rangeStringList.add("60分以下");
-        rangeStringList.add("60~70分");
-        rangeStringList.add("70~80分");
-        rangeStringList.add("80~90分");
-        rangeStringList.add("90~100分");
-
-        String courseName = "";
-
-        for(Score sc : scoreList){
-            courseName = sc.getCourseName();  //获取课程名
-            double scoreValue = sc.getScore();//获取成绩
-            if(scoreValue < 60){
-                numberList.set(0, numberList.get(0)+1);
-                continue;
-            }
-            if(scoreValue <= 70 && scoreValue >= 60){
-                numberList.set(1, numberList.get(1)+1);
-                continue;
-            }
-            if(scoreValue <= 80 && scoreValue > 70){
-                numberList.set(2, numberList.get(2)+1);
-                continue;
-            }
-            if(scoreValue <= 90 && scoreValue > 80){
-                numberList.set(3, numberList.get(3)+1);
-                continue;
-            }
-            if(scoreValue <= 100 && scoreValue > 90){
-                numberList.set(4, numberList.get(4)+1);
-                continue;
-            }
-        }
-        Map<String, Object> retMap = new HashMap<String, Object>();
-        retMap.put("courseName", courseName);
-        retMap.put("numberList", numberList);
-        retMap.put("rangeList", rangeStringList);
-        retMap.put("type", "success");
-        return retMap;
     }
 
 }

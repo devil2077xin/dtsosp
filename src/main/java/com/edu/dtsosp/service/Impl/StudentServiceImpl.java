@@ -67,6 +67,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public boolean isStudentByTermId(Integer id) {
+        List<Student> studentList = studenetMapper.isStudentByTermId(id);
+        if (studentList.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
     public int editPswdByStudent(Student student) {
         return studenetMapper.editPswdByStudent(student);
     }

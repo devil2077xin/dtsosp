@@ -31,7 +31,7 @@
 				columns: [
 						[
 					{field:'chk',checkbox: true,width:50},
-					{field:'id',title:'ID',width:50, sortable: true},
+					{field:'id',title:'序号',width:50, sortable: true},
 					{field:'userid',title:'学号',width:200, sortable: true},
 					{field:'username',title:'姓名',width:200},
 					{field:'sex',title:'性别',width:100},
@@ -120,23 +120,6 @@
 			});
 
 
-			//班级下拉框
-			/*$("#clazzList").combobox({
-                width: "150",
-                height: "25",
-                valueField: "id",
-                textField: "name",
-                multiple: false, //可多选
-                editable: false, //不可编辑
-                method: "post",
-                url: "ClazzServlet?method=getClazzList&t="+new Date().getTime()+"&from=combox",
-                onChange: function(newValue, oldValue){
-                    //加载班级下的学生
-                    $('#dataList').datagrid("options").queryParams = {clazzid: newValue};
-                    $('#dataList').datagrid("reload");
-                }
-            });*/
-
 			function preLoadClazz(){
 				$("#clazzList").combobox({
 					width: "150",
@@ -148,9 +131,6 @@
 					method: "post",
 					url: [[@{/clazz/getClazzList(from=combox)}]],
 					onChange: function(newValue, oldValue){
-						//加载班级下的学生
-						//$('#dataList').datagrid("options").queryParams = {clazzid: newValue};
-						//$('#dataList').datagrid("reload");
 					}
 				});
 			}
@@ -387,74 +367,7 @@
 				});
 			});
 		});
-		//上传图片按钮事件
-		$("#upload-photo-btn").click(function(){
 
-		});
-		// function uploadPhoto(){
-		// 	var action = $("#uploadForm").attr('action');
-		// 	var pos = action.indexOf('sid');
-		// 	if(pos != -1){
-		// 		action = action.substring(0,pos-1);
-		// 	}
-		// 	$("#uploadForm").attr('action',action+'&sid='+$("#set-photo-id").val());
-		// 	$("#uploadForm").submit();
-		// 	setTimeout(function(){
-		// 		var message =  $(window.frames["photo_target"].document).find("#message").text();
-		// 		$.messager.alert("消息提醒",message,"info");
-		//
-		// 		$("#edit_photo").attr("src", "PhotoServlet?method=getPhoto&sid="+$("#set-photo-id").val());
-		// 	}, 1500)
-		// }
-
-		/*图片预览*/
-		var filechange=function(event){
-			$("#imgDiv div").remove();
-
-			var inp = event.path[0];
-			var files = event.target.files;
-			$.each(files,function(key,value){
-				//每次都只会遍历一个图片数据
-				var div = document.createElement("div"),
-						img = document.createElement("img");
-				div.className = "pic";
-
-				var fr = new FileReader();
-				fr.onload = function(){
-					img.src=this.result;
-					$(img).css("width","200px");
-					$(img).css("hight","200px");
-					div.appendChild(img);
-					$("#imgDiv").append(div);
-				};
-				console.log(img)
-				fr.readAsDataURL(value);
-			})
-		};
-
-		var filechange1=function(event){
-			$("#imgd div").remove();
-
-			var inp = event.path[0];
-			var files = event.target.files;
-			$.each(files,function(key,value){
-				//每次都只会遍历一个图片数据
-				var div = document.createElement("div"),
-						img = document.createElement("img");
-				div.className = "pic";
-
-				var fr = new FileReader();
-				fr.onload = function(){
-					img.src=this.result;
-					$(img).css("width","200px");
-					$(img).css("hight","200px");
-					div.appendChild(img);
-					$("#imgd").append(div);
-				};
-				console.log(img)
-				fr.readAsDataURL(value);
-			})
-		};
 
 		/*]]>*/
 	</script>
