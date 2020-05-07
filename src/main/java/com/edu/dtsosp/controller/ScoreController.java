@@ -261,7 +261,7 @@ public class ScoreController {
      */
     @RequestMapping("/exportScore")
     @ResponseBody
-    private void exportScore(HttpServletResponse response,Score score,HttpSession session) {
+    private void exportScore(HttpServletResponse response, Score score, HttpSession session) {
         //获取当前登录用户类型
         Student student = (Student) session.getAttribute(Const.STUDENT);
         if(!StringUtils.isEmpty(student)){

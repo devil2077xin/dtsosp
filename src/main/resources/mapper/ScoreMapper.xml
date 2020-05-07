@@ -15,7 +15,7 @@
     <select id="queryList" resultMap="ScoreInfo" >
         <!-- 根据条件查询 图书的所有信息 -->
         SELECT *
-        from t_score
+        from t_score_old
         <where>
             <if test="courseid!=null"> and course_id = #{courseid} </if>
             <if test="studentid!=null"> and student_id = #{studentid} </if>
@@ -24,7 +24,7 @@
     </select>
 
     <select id="queryCount" resultType="int" >
-        select count(*) from t_score
+        select count(*) from t_score_old
         <where>
             <if test="courseid!=null"> and course_id = #{courseid} </if>
             <if test="studentid!=null"> and student_id = #{studentid} </if>
@@ -32,12 +32,12 @@
     </select>
 
     <insert id="addScore" parameterType="Score">
-        insert into t_score(course_id,student_id,score,remark)
+        insert into t_score_old(course_id,student_id,score,remark)
         values(#{courseId},#{studentId},#{score},#{remark})
     </insert>
 
     <delete id="deleteScore" parameterType="int">
-        delete from t_score where id = #{id}
+        delete from t_score_old where id = #{id}
     </delete>
 
     <!--    <update id="editStudent" parameterType="Student">-->
@@ -75,27 +75,27 @@
     <!--    </select>-->
 
     <select id="isScore" parameterType="Score" resultType="Score">
-        select * from t_score where course_id = #{courseId} and student_id = #{studentId}
+        select * from t_score_old where course_id = #{courseId} and student_id = #{studentId}
     </select>
 
     <update id="editScore" parameterType="Score">
-        update  t_score set course_id = #{courseId},student_id = #{studentId},score = #{score}, remark = #{remark} where id = #{id}
+        update  t_score_old set course_id = #{courseId},student_id = #{studentId},score = #{score}, remark = #{remark} where id = #{id}
     </update>
 
     <select id="getAll" parameterType="Score" resultMap="ScoreInfo">
-        select  t_score.*,t_course.name as courseName,t_student.username as studentName
-        from t_score,t_course,t_student
+        select  t_score_old.*,t_course.name as courseName,t_student.username as studentName
+        from t_score_old,t_course,t_student
         <where>
-            t_score.course_id = t_course.id and t_score.student_id = t_student.id
+            t_score_old.course_id = t_course.id and t_score_old.student_id = t_student.id
             <if test="courseId!=null and courseId != ''"> and course_id = #{courseId} </if>
             <if test="studentId!=null and studentId != ''"> and student_id = #{studentId} </if>
         </where>
     </select>
 
     <select id="getAvgStats" parameterType="int" resultType="ScoreStats">
-        select max(t_score.score) as max_score,avg(t_score.score) as avg_score,min(t_score.score) as min_score,t_course.name as courseName
-        from t_score,t_course
-        where t_score.course_id=t_course.id and t_score.course_id = #{courseid}
+        select max(t_score_old.score) as max_score,avg(t_score_old.score) as avg_score,min(t_score_old.score) as min_score,t_course.name as courseName
+        from t_score_old,t_course
+        where t_score_old.course_id=t_course.id and t_score_old.course_id = #{courseid}
     </select>
 
 

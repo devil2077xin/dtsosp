@@ -275,6 +275,7 @@
                     var selectRow = $("#dataList").datagrid("getSelected");
                     //设置值
                     $("#edit_studentList").combobox('setValue', selectRow.studentId);
+                    $("#edit_courseList").combobox('setValue', selectRow.courseid);
                     $("#edit_score").numberbox('setValue', selectRow.score);
                     $("#edit_remark").textbox('setValue', selectRow.remark);
                     setTimeout(function(){

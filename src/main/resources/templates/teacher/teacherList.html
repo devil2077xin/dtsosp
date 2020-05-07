@@ -36,6 +36,7 @@
 					{field:'id',title:'ID',width:50, sortable: true},
 					{field:'userid',title:'工号',width:150, sortable: true},
 					{field:'username',title:'姓名',width:150},
+					{field:'password',title:'密码',width:150},	//密码
 					{field:'sex',title:'性别',width:100},
 					{field:'mobile',title:'电话',width:150},
 					{field:'qq',title:'QQ',width:150},
@@ -183,6 +184,7 @@
                                             $("#add_userid").textbox('setValue', "");
 											$("#add_number").textbox('setValue', "");
 											$("#add_name").textbox('setValue', "");
+                                            $("#add_password").textbox('setValue', "123456");
 											$("#add_sex").textbox('setValue', "男");
 											$("#add_phone").textbox('setValue', "");
 											$("#add_qq").textbox('setValue', "");
@@ -208,6 +210,7 @@
                             $("#add_userid").textbox('setValue', "");
 						    $("#add_number").textbox('setValue', "");
 							$("#add_name").textbox('setValue', "");
+                            $("#add_password").textbox('setValue', "");
 							$("#add_phone").textbox('setValue', "");
 							$("#add_qq").textbox('setValue', "");
 
@@ -220,6 +223,7 @@
                     $("#add_userid").textbox('setValue', "");
 				    $("#add_number").textbox('setValue', "");
 					$("#add_name").textbox('setValue', "");
+                    $("#add_password").textbox('setValue', "");
 					$("#add_phone").textbox('setValue', "");
 					$("#add_qq").textbox('setValue', "");
 
@@ -310,7 +314,7 @@
 											$("#editDialog").dialog("close");
 											//清空原表格数据
                                             $("#edit_name").textbox('setValue', "");
-											$("#edit_name").textbox('setValue', "");
+                                            $("#edit_password").textbox('setValue', "");
 											$("#edit_sex").textbox('setValue', "男");
 											$("#edit_phone").textbox('setValue', "");
 											$("#edit_qq").textbox('setValue', "");
@@ -335,6 +339,7 @@
 						handler:function(){
                             $("#edit_userid").textbox('setValue', "");
 						    $("#edit_name").textbox('setValue', "");
+                            $("#edit_password").textbox('setValue', "");
 							$("#edit_phone").textbox('setValue', "");
 							$("#edit_qq").textbox('setValue', "");
 
@@ -357,6 +362,7 @@
 							//设置值
                             $("#edit_userid").textbox('setValue', selectRow.userid);
 							$("#edit_name").textbox('setValue', selectRow.username);
+                            $("#edit_password").textbox('setValue', selectRow.password);
 							$("#edit_sex").textbox('setValue', selectRow.sex);
 							$("#edit_phone").textbox('setValue', selectRow.mobile);
 							$("#edit_qq").textbox('setValue', selectRow.qq);
@@ -385,6 +391,7 @@
 				},
 				onClose: function(){
 					$("#edit_name").textbox('setValue', "");
+                    $("#edit_password").textbox('setValue', "");
 					$("#edit_phone").textbox('setValue', "");
 					$("#edit_qq").textbox('setValue', "");
 				}
@@ -398,6 +405,13 @@
 				});
 			});
 		});
+
+        //清空搜索条件
+		$("#clear-btn").click(function(){
+            $('#dataList').datagrid("reload",{});
+            $('#search_student_name').combobox('clear');
+            $("#clazzList").combobox('clear');
+        });
 
 		//上传图片按钮事件
 		$("#upload-photo-btn").click(function(){
@@ -486,6 +500,7 @@
 	<div style="float: left;margin-top:4px;" class="datagrid-btn-separator" >&nbsp;&nbsp;姓名：<input id="search_student_name" class="easyui-textbox" name="search_student_name" /></div>
 	<div style="margin-left: 10px;margin-top:4px;" >班级：<input id="clazzList" class="easyui-textbox" name="clazz" />
 		<a id="search-btn" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
+		<a id="clear-btn" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">清空搜索</a>
 	</div>
 </div>
 
@@ -560,6 +575,10 @@
 			<tr>
 				<td>姓名:</td>
 				<td><input id="edit_name" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="username" data-options="required:true, missingMessage:'请填写姓名'" /></td>
+			</tr>
+			<tr>
+				<td>密码:</td>
+				<td><input id="edit_password" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="password" data-options="required:true, missingMessage:'请填写密码'" /></td>
 			</tr>
 			<tr>
 				<td>性别:</td>
