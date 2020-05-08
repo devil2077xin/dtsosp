@@ -7,7 +7,6 @@ package com.edu.dtsosp.domain;
 public class Score {
     private Integer id;
     private Integer studentId;
-    private Integer termId;
     private double score1;
     private double score2;
     private double score3;
@@ -16,7 +15,6 @@ public class Score {
     private double score6;
     private String remark;
 
-    private String termName;
     private String studentName;
 
     public Integer getId() {

@@ -43,8 +43,8 @@ public class SelectedCourseController {
     @ResponseBody
     public Object getClazzList(@RequestParam(value = "page", defaultValue = "1")Integer page,
                                @RequestParam(value = "rows", defaultValue = "100")Integer rows,
-                               @RequestParam(value = "teacherid", defaultValue = "0")String studentid,
-                               @RequestParam(value = "teacherid", defaultValue = "0")String courseid ,String from,HttpSession session){
+                               @RequestParam(value = "userid", defaultValue = "0")String studentid,
+                               @RequestParam(value = "courseid", defaultValue = "0")String courseid ,String from,HttpSession session){
         Map<String,Object> paramMap = new HashMap();
         paramMap.put("pageno",page);
         paramMap.put("pagesize",rows);
@@ -65,61 +65,6 @@ public class SelectedCourseController {
             result.put("rows",pageBean.getDatas());
             return result;
         }
-    }
-
-    /**
-     * 学生进行选课
-     * @param selectedCourse
-     * @return
-     */
-    @PostMapping("/addSelectedCourse")
-    @ResponseBody
-    public AjaxResult addSelectedCourse(SelectedCourse selectedCourse){
-        AjaxResult ajaxResult = new AjaxResult();
-        try {
-            int count = selectedCourseService.addSelectedCourse(selectedCourse);
-            if(count == 1){
-                ajaxResult.setSuccess(true);
-                ajaxResult.setMessage("选课成功");
-            }else if(count == 0){
-                ajaxResult.setSuccess(false);
-                ajaxResult.setMessage("选课人数已满");
-            }else if(count == 2){
-                ajaxResult.setSuccess(false);
-                ajaxResult.setMessage("已选择这门课程");
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            ajaxResult.setSuccess(false);
-            ajaxResult.setMessage("系统内部出错，请联系管理员!");
-        }
-        return ajaxResult;
-    }
-
-
-    /**
-     * 删除选课信息
-     * @param id
-     * @return
-     */
-    @PostMapping("/deleteSelectedCourse")
-    @ResponseBody
-    public AjaxResult deleteSelectedCourse(Integer id){
-        AjaxResult ajaxResult = new AjaxResult();
-
-        try {
-            int count = selectedCourseService.deleteSelectedCourse(id);
-            if(count > 0){
-                ajaxResult.setSuccess(true);
-                ajaxResult.setMessage("移除成功");
-            }else{
-                ajaxResult.setSuccess(false);
-                ajaxResult.setMessage("移除失败");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ajaxResult;
     }
 
 

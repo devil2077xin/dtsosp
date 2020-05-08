@@ -49,69 +49,69 @@
                     url:   [[@{/score/getScoreStatsList}]] + "?courseid="+courseId+"&searchType="+searchKey,
                     dataType:'json',
                     success:function(rst){
-                        if(rst.type == "success"){
-                            var option;
-                            if(searchKey == 'range'){
-                                option = {
-                                    title: {
-                                        text: '课程：'+rst.courseName
-                                    },
-                                    tooltip: {
-                                        trigger: 'axis',
-                                        axisPointer: {
-                                            type: 'cross',
-                                            crossStyle: {
-                                                color: '#999'
-                                            }
+                    if(rst.type == "success"){
+                        var option;
+                        if(searchKey == 'range'){
+                            option = {
+                                title: {
+                                    text: '课程：'+rst.courseName
+                                },
+                                tooltip: {
+                                    trigger: 'axis',
+                                    axisPointer: {
+                                        type: 'cross',
+                                        crossStyle: {
+                                            color: '#999'
                                         }
-                                    },
-                                    legend: {
-                                        data:['成绩区间分布']
-                                    },
-                                    xAxis: {
-                                        data: rst.rangeList
-                                    },
-                                    yAxis: {type: 'value'},
-                                    series: [{
-                                        name: '成绩区间分布',
-                                        type: 'bar',
-                                        data: rst.numberList
-                                    }]
-                                };
-                            }else{
-                                option = {
-                                    title: {
-                                        text: '课程：'+rst.courseName
-                                    },
-                                    tooltip: {
-                                        trigger: 'axis',
-                                        axisPointer: {
-                                            type: 'cross',
-                                            crossStyle: {
-                                                color: '#999'
-                                            }
-                                        }
-                                    },
-                                    legend: {
-                                        data:['成绩分布']
-                                    },
-                                    xAxis: {
-                                        data: rst.avgList
-                                    },
-                                    yAxis: {type: 'value'},
-                                    series: [{
-                                        name: '成绩分布',
-                                        type: 'bar',
-                                        data: rst.scoreList
-                                    }]
-                                };
-                            }
-                            showCharts(option);
+                                    }
+                                },
+                                legend: {
+                                    data:['成绩区间分布']
+                                },
+                                xAxis: {
+                                    data: rst.rangeList
+                                },
+                                yAxis: {type: 'value'},
+                                series: [{
+                                    name: '成绩区间分布',
+                                    type: 'bar',
+                                    data: rst.numberList
+                                }]
+                            };
                         }else{
-                            $.messager.alert("消息提醒","获取数据出错!","info");
+                            option = {
+                                title: {
+                                    text: '课程：'+rst.courseName
+                                },
+                                tooltip: {
+                                    trigger: 'axis',
+                                    axisPointer: {
+                                        type: 'cross',
+                                        crossStyle: {
+                                            color: '#999'
+                                        }
+                                    }
+                                },
+                                legend: {
+                                    data:['成绩分布']
+                                },
+                                xAxis: {
+                                    data: rst.avgList
+                                },
+                                yAxis: {type: 'value'},
+                                series: [{
+                                    name: '成绩分布',
+                                    type: 'bar',
+                                    data: rst.scoreList
+                                }]
+                            };
                         }
+                        showCharts(option);
+                    }else{
+                        $.messager.alert("消息提醒","获取数据出错!","info");
                     }
-                })
+                }
+            }
 
             });
 

@@ -10,7 +10,7 @@
 <body>
 
 <div th:fragment="welcome">
-	<div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; ">
+	<div title="欢迎使用" style="padding:20px;overflow:hidden; color:blue; ">
 		<p style="font-size: 50px; line-height: 60px; height: 60px;" th:if="${session.usertype == '1'}" th:text="${session.admin.username}"></p>
 		<p style="font-size: 50px; line-height: 60px; height: 60px;" th:if="${session.usertype == '2'}" th:text="${session.student.username}"></p>
 		<p style="font-size: 50px; line-height: 60px; height: 60px;" th:if="${session.usertype == '3'}" th:text="${session.teacher.username}"></p>

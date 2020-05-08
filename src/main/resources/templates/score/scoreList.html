@@ -31,7 +31,7 @@
                 columns: [
                     [
                     {field:'chk',checkbox: true,width:50},
-                    {field:'id',title:'ID',width:50},
+                    {field:'id',title:'序号',width:50},
                     {field:'studentId',title:'学生',width:50,
                         formatter: function(value,row,index){
                             if (row.studentId){
@@ -64,6 +64,7 @@
                     }
                 }
             });
+
             //提前加载学生和课程信息
             function preLoadClazz(){
                 $("#studentList").combobox({

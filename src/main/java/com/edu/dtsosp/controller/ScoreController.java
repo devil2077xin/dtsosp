@@ -221,7 +221,6 @@ public class ScoreController {
                 // 2)判断是否已存在数据库中
                 Score score = new Score();
                 score.setStudentId(studentId);
-                //score.setTermId(termId);
                 score.setScore1(scoreValue);
                 score.setRemark(remark);
                 if(!scoreService.isScore(score)){
@@ -274,17 +273,25 @@ public class ScoreController {
             XSSFSheet createSheet = xssfWorkbook.createSheet("成绩列表");
             XSSFRow createRow = createSheet.createRow(0);
             createRow.createCell(0).setCellValue("学生");
-            createRow.createCell(1).setCellValue("学期");
-            createRow.createCell(2).setCellValue("成绩1");
-            createRow.createCell(3).setCellValue("备注");
+            createRow.createCell(1).setCellValue("成绩1");
+            createRow.createCell(2).setCellValue("成绩2");
+            createRow.createCell(3).setCellValue("成绩3");
+            createRow.createCell(4).setCellValue("成绩4");
+            createRow.createCell(5).setCellValue("成绩5");
+            createRow.createCell(6).setCellValue("成绩6");
+            createRow.createCell(7).setCellValue("备注");
             //实现将数据装入到excel文件中
             int row = 1;
             for( Score s:scoreList){
                 createRow = createSheet.createRow(row++);
                 createRow.createCell(0).setCellValue(s.getStudentName());
-               // createRow.createCell(1).setCellValue(s.getTermId());
-                createRow.createCell(2).setCellValue(s.getScore1());
-                createRow.createCell(3).setCellValue(s.getRemark());
+                createRow.createCell(1).setCellValue(s.getScore1());
+                createRow.createCell(2).setCellValue(s.getScore2());
+                createRow.createCell(3).setCellValue(s.getScore3());
+                createRow.createCell(4).setCellValue(s.getScore4());
+                createRow.createCell(5).setCellValue(s.getScore5());
+                createRow.createCell(6).setCellValue(s.getScore6());
+                createRow.createCell(7).setCellValue(s.getRemark());
             }
             xssfWorkbook.write(outputStream);
             outputStream.flush();
