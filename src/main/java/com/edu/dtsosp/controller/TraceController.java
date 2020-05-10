@@ -1,36 +1,18 @@
 package com.edu.dtsosp.controller;
 
 import com.edu.dtsosp.domain.Score;
-import com.edu.dtsosp.domain.ScoreStats;
 import com.edu.dtsosp.domain.Student;
-import com.edu.dtsosp.service.CourseService;
 import com.edu.dtsosp.service.ScoreService;
-import com.edu.dtsosp.service.SelectedCourseService;
 import com.edu.dtsosp.service.StudentService;
-import com.edu.dtsosp.util.AjaxResult;
 import com.edu.dtsosp.util.Const;
 import com.edu.dtsosp.util.PageBean;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 

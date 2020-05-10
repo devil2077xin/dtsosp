@@ -2,9 +2,7 @@ package com.edu.dtsosp.controller;
 
 import com.edu.dtsosp.domain.Student;
 import com.edu.dtsosp.service.ClazzService;
-import com.edu.dtsosp.service.SelectedCourseService;
 import com.edu.dtsosp.service.StudentService;
-import com.edu.dtsosp.util.*;
 import com.edu.dtsosp.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +24,7 @@ public class StudentController {
     private StudentService studentService;
     @Autowired
     private ClazzService clazzService;
-    @Autowired
-    private SelectedCourseService selectedCourseService;
+
 
     /**
      * 跳转学生列表页面
@@ -90,13 +87,6 @@ public class StudentController {
         try {
             List<Integer> ids = data.getIds();
             Iterator<Integer> iterator = ids.iterator();
-            while (iterator.hasNext()){  //判断是否存在课程关联学生
-                if(!selectedCourseService.isStudentId(iterator.next())){
-                    ajaxResult.setSuccess(false);
-                    ajaxResult.setMessage("无法删除,存在课程关联学生");
-                    return ajaxResult;
-                }
-            }
             File fileDir = UploadUtil.getImgDirFile();
             for(Integer id : ids){
                 Student byId = studentService.findById(id);
