@@ -1,7 +1,6 @@
 package com.edu.dtsosp.service;
 
 import com.edu.dtsosp.domain.Score;
-import com.edu.dtsosp.domain.ScoreStats;
 import com.edu.dtsosp.util.PageBean;
 
 import java.util.List;

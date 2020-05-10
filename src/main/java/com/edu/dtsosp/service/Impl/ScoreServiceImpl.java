@@ -1,7 +1,6 @@
 package com.edu.dtsosp.service.Impl;
 
 import com.edu.dtsosp.domain.Score;
-import com.edu.dtsosp.domain.ScoreStats;
 import com.edu.dtsosp.mapper.ScoreMapper;
 import com.edu.dtsosp.service.ScoreService;
 import com.edu.dtsosp.util.PageBean;

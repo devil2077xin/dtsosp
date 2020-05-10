@@ -1,7 +1,6 @@
 package com.edu.dtsosp.mapper;
 
 import com.edu.dtsosp.domain.Score;
-import com.edu.dtsosp.domain.ScoreStats;
 
 import java.util.List;
 import java.util.Map;
