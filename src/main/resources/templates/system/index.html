@@ -12,7 +12,7 @@
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
          var usertype = [[${session.usertype}]];
-         if(usertype == "1" || usertype == "3"){
+         if( usertype == "1"){
              var _menus = {"menus":[
                      {"menuid":"2","icon":"","menuname":"学生信息管理",
                          "menus":[
@@ -76,6 +76,37 @@
                      },
                  ]};
          }
+
+        if(usertype == "3"){
+            var _menus = {"menus":[
+                    {"menuid":"2","icon":"","menuname":"学生信息管理",
+                        "menus":[
+                            {"menuid":"21","menuname":"学生列表","icon":"icon-user-student","url":/*[[@{/student/student_list}]]*/},
+                        ]
+                    },
+                    {"menuid":"3","icon":"","menuname":"教师信息管理",
+                        "menus":[
+                            {"menuid":"31","menuname":"教师列表","icon":"icon-user-teacher","url":/*[[@{/teacher/teacher_list}]]*/},
+                        ]
+                    },
+                    {
+                        "menuid": "10", "icon": "", "menuname": "成绩信息管理",
+                        "menus": [
+                            {
+                                "menuid": "101",
+                                "menuname": "成绩列表",
+                                "icon": "icon-book-open",
+                                "url": /*[[@{/score/score_list}]]*/
+                            },
+                        ]
+                    },
+                    {"menuid":"6","icon":"","menuname":"成绩动态追踪",
+                        "menus":[
+                            {"menuid":"61","menuname":"追踪成绩","icon":"icon-user-teacher","url": /*[[@{/trace/trace_list}]]*/},
+                        ]
+                    },
+                ]};
+        }
 
 
         /*]]>*/

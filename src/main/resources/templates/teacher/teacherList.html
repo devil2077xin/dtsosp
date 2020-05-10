@@ -406,82 +406,6 @@
 			});
 		});
 
-        //清空搜索条件
-		$("#clear-btn").click(function(){
-            $('#dataList').datagrid("reload",{});
-            $('#search_student_name').combobox('clear');
-            $("#clazzList").combobox('clear');
-        });
-
-		//上传图片按钮事件
-		$("#upload-photo-btn").click(function(){
-
-		});
-		function uploadPhoto(){
-			var action = $("#uploadForm").attr('action');
-			var pos = action.indexOf('tid');
-			if(pos != -1){
-				action = action.substring(0,pos-1);
-			}
-			$("#uploadForm").attr('action',action+'&tid='+$("#set-photo-id").val());
-			$("#uploadForm").submit();
-			setTimeout(function(){
-				var message =  $(window.frames["photo_target"].document).find("#message").text();
-				$.messager.alert("消息提醒",message,"info");
-
-				$("#edit_photo").attr("src", "PhotoServlet?method=getPhoto&tid="+$("#set-photo-id").val());
-			}, 1500)
-		}
-
-		/*图片预览*/
-		var filechange=function(event){
-			$("#imgDiv div").remove();
-
-			var inp = event.path[0];
-			var files = event.target.files;
-			$.each(files,function(key,value){
-				//每次都只会遍历一个图片数据
-				var div = document.createElement("div"),
-						img = document.createElement("img");
-				div.className = "pic";
-
-				var fr = new FileReader();
-				fr.onload = function(){
-					img.src=this.result;
-					$(img).css("width","200px");
-					$(img).css("hight","200px");
-					div.appendChild(img);
-					$("#imgDiv").append(div);
-				};
-				console.log(img)
-				fr.readAsDataURL(value);
-			})
-		};
-
-		var filechange1=function(event){
-			$("#imgd div").remove();
-
-			var inp = event.path[0];
-			var files = event.target.files;
-			$.each(files,function(key,value){
-				//每次都只会遍历一个图片数据
-				var div = document.createElement("div"),
-						img = document.createElement("img");
-				div.className = "pic";
-
-				var fr = new FileReader();
-				fr.onload = function(){
-					img.src=this.result;
-					$(img).css("width","200px");
-					$(img).css("hight","200px");
-					div.appendChild(img);
-					$("#imgd").append(div);
-				};
-				console.log(img)
-				fr.readAsDataURL(value);
-			})
-		};
-
 		/*]]>*/
 	</script>
 </head>
@@ -500,7 +424,6 @@
 	<div style="float: left;margin-top:4px;" class="datagrid-btn-separator" >&nbsp;&nbsp;姓名：<input id="search_student_name" class="easyui-textbox" name="search_student_name" /></div>
 	<div style="margin-left: 10px;margin-top:4px;" >班级：<input id="clazzList" class="easyui-textbox" name="clazz" />
 		<a id="search-btn" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
-		<a id="clear-btn" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">清空搜索</a>
 	</div>
 </div>
 
@@ -596,6 +519,5 @@
 	</form>
 </div>
 
-<iframe id="photo_target" name="photo_target"></iframe>
 </body>
 </html>

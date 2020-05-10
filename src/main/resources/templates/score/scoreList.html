@@ -95,10 +95,6 @@
                 $("#addDialog").dialog("open");
             });
 
-            //设置导入工具类按钮
-            $("#import").click(function(){
-                $("#importDialog").dialog("open");
-            });
 
             //设置编辑按钮
             $("#edit").click(function(){
@@ -267,37 +263,6 @@
                 }
             });
 
-            //设置导入窗口
-            $("#importDialog").dialog({
-                title: "导入成绩信息",
-                width: 450,
-                height: 150,
-                iconCls: "icon-add",
-                modal: true,
-                collapsible: false,
-                minimizable: false,
-                maximizable: false,
-                draggable: true,
-                closed: true,
-                buttons: [
-                    {
-                        text:'确认导入',
-                        plain: true,
-                        iconCls:'icon-book-add',
-                        handler:function(){
-                            var validate = $("#importForm").form("validate");
-                            if(!validate){
-                                $.messager.alert("消息提醒","请选择文件!","warning");
-                                return;
-                            } else{
-                                importScore();
-                                $("#importDialog").dialog("close");
-                            }
-                        }
-                    }
-                ]
-            });
-
             //下拉框通用属性
             $("#add_studentList,#studentList,#edit_studentList").combobox({
                 width: "200",
@@ -315,11 +280,7 @@
                     //默认选择第一条数据
                     var data = $(this).combobox("getData");
                     $(this).combobox("setValue", data[0].id);
-                    getStudentSelectedCourseList(data[0].id);
                 },
-                onChange:function(id,o){
-                    getStudentSelectedCourseList(id);
-                }
             });
 
 
@@ -331,11 +292,7 @@
                     //默认选择第一条数据
                     var data = $(this).combobox("getData");
                     $(this).combobox("setValue", data[0].id);
-                    getEditStudentSelectedCourseList(data[0].id);
                 },
-                onChange:function(id,o){
-                    getEditStudentSelectedCourseList(id);
-                }
             });
 
 
@@ -346,32 +303,12 @@
                 });
             });
 
-            //导出按钮监听事件
-            $("#export").click(function(){
-                studentid = $("#studentList").combobox('getValue') == '' ? 0 : $("#studentList").combobox('getValue');
-                url = [[@{/score/exportScore}]] + "?studentId=" + studentid ;
-                window.location.href = url;
-            });
-
             //清空搜索条件
             $("#clear-btn").click(function(){
                 $('#dataList').datagrid("reload",{});
                 $("#studentList").combobox('clear');
             });
 
-            function importScore(){
-                $("#importForm").submit();
-                $.messager.progress({text:'正在上传导入中...'});
-                var interval = setInterval(function(){
-                    var message =  $(window.frames["import_target"].document).find("#message").text();
-                    if(message != null && message != ''){
-                        $.messager.progress('close');
-                        $.messager.alert("消息提醒",message,"info");
-                        $('#dataList').datagrid("reload");
-                        clearInterval(interval);
-                    }
-                }, 1000)
-            }
         });
         /*]]>*/
     </script>
@@ -385,16 +322,11 @@
 <div id="toolbar">
         <div th:if="${session.usertype == '1' || session.usertype == '3'}" style="float: left;"><a id="add" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a></div>
         <div style="float: left;" class="datagrid-btn-separator"></div>
-        <div th:if="${session.usertype == '1' || session.usertype == '3'}" style="float: left;"><a id="import" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">导入</a></div>
-        <div style="float: left;" class="datagrid-btn-separator"></div>
-        <div style="float: left;"><a id="export" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">导出</a></div>
-        <div style="float: left;" class="datagrid-btn-separator"></div>
         <div th:if="${session.usertype == '1' || session.usertype == '3'}" style="float: left;"><a id="edit" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">修改</a></div>
         <div style="float: left;" class="datagrid-btn-separator"></div>
         <div th:if="${session.usertype == '1' || session.usertype == '3'}" style="float: left; margin-right: 10px;"><a id="delete" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-some-delete',plain:true">删除</a></div>
         <div style="float: left;" class="datagrid-btn-separator"></div>
-    <div style="margin-top: 3px;">
-        学生：<input id="studentList" class="easyui-textbox" name="studentList" />
+        <div style="margin-top: 3px;">学生：<input id="studentList" class="easyui-textbox" name="studentList" />
         <a id="search-btn" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
         <a id="clear-btn" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">清空搜索</a>
     </div>
