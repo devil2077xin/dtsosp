@@ -40,40 +40,6 @@
         delete from t_score where id = #{id}
     </delete>
 
-    <!--    <update id="editStudent" parameterType="Student">-->
-    <!--        update t_student-->
-    <!--        <set>-->
-    <!--            <if test="username != null">-->
-    <!--                username = #{username},-->
-    <!--            </if>-->
-    <!--            <if test="clazzId != null">-->
-    <!--                clazz_id = #{clazzId},-->
-    <!--            </if>-->
-    <!--            <if test="sex != null">-->
-    <!--                sex = #{sex},-->
-    <!--            </if>-->
-    <!--            <if test="mobile != null">-->
-    <!--                mobile = #{mobile},-->
-    <!--            </if>-->
-    <!--            <if test="qq != null">-->
-    <!--                qq = #{qq},-->
-    <!--            </if>-->
-    <!--            <if test="photo != null">-->
-    <!--                photo = #{photo},-->
-    <!--            </if>-->
-    <!--        </set>-->
-    <!--        where id = #{id}-->
-    <!--    </update>-->
-
-
-    <!--    <select id="findById" parameterType="int" resultType="Student">-->
-    <!--        select * from t_student where id = #{sid}-->
-    <!--    </select>-->
-
-    <!--    <select id="findByStudent" parameterType="Student" resultType="Student">-->
-    <!--        select * from t_student where username = #{username} and password = #{password}-->
-    <!--    </select>-->
-
     <select id="isScore" parameterType="Score" resultType="Score">
         select * from t_score where student_id = #{studentId}
     </select>

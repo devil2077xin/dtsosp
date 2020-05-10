@@ -1,5 +1,7 @@
 package com.edu.dtsosp.util;
 
+import java.util.Map;
+
 /**
  * @Classname AjaxResult
  * @Description ajax json 返回数据
@@ -9,6 +11,9 @@ public class AjaxResult {
     private String message;
     private String imgurl;
     private String type;
+    private Map data;
+    private String status;
+    private String msg;
 
     public boolean isSuccess() {
         return success;
@@ -41,4 +46,17 @@ public class AjaxResult {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getMsg() { return msg; }
+
+    public void setMsg(String msg) { this.msg = msg; }
+
+    public Map getData() { return data; }
+
+    public void setData(Map data) { this.data = data; }
+
+    public String getStatus() { return status; }
+
+    public void setStatus(String status) { this.status = status; }
+
 }
