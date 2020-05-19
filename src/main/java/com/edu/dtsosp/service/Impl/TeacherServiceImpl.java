@@ -56,8 +56,4 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherMapper.findByTeacher(teacher);
     }
 
-    @Override
-    public int editPswdByTeacher(Teacher teacher) {
-        return teacherMapper.editPswdByTeacher(teacher);
-    }
 }

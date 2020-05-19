@@ -24,7 +24,7 @@
 				method: "post",
 				url:[[@{/teacher/getTeacherList}]],
 				idField:'id',
-				singleSelect:false,//是否单选
+				singleSelect:true,//是否单选
 				pagination:true,//分页控件
 				rownumbers:true,//行号
 				sortName:'id',
@@ -289,14 +289,7 @@
 								$.messager.alert("消息提醒","请检查你输入的数据!","warning");
 								return;
 							} else{
-								// var clazzid = $("#edit_clazzList").combobox("getValue");
-								 var id = $("#dataList").datagrid("getSelected").id;
-								// var name = $("#edit_name").textbox("getText");
-								// var sex = $("#edit_sex").textbox("getText");
-								// var phone = $("#edit_phone").textbox("getText");
-								// var qq = $("#edit_qq").textbox("getText");
-								// var data = {id:id, clazzid:clazzid, name:name,sex:sex,mobile:phone,qq:qq};
-
+								var id = $("#dataList").datagrid("getSelected").id;
 								var formData = new FormData($( "#editForm" )[0]);
 								formData.append("id",id);
 								$.ajax({
@@ -337,12 +330,12 @@
 						plain: true,
 						iconCls:'icon-reload',
 						handler:function(){
+                            //清空表单
                             $("#edit_userid").textbox('setValue', "");
 						    $("#edit_name").textbox('setValue', "");
                             $("#edit_password").textbox('setValue', "");
 							$("#edit_phone").textbox('setValue', "");
 							$("#edit_qq").textbox('setValue', "");
-
 							$(table).find(".chooseTr").remove();
 
 						}
@@ -350,15 +343,6 @@
 				],
 				onBeforeOpen: function(){
 					var selectRow = $("#dataList").datagrid("getSelected");
-					console.log(selectRow);
-					$("#imgd div").remove();
-					$.ajax({
-						type: "post",
-						url: [[@{/system/getPhoto}]]+"?tid="+selectRow.id,
-						success: function(data){
-						var i = [[@{/upload/imgs/}]];
-							var imgUrl = data.imgurl;
-							var img = i + imgUrl;
 							//设置值
                             $("#edit_userid").textbox('setValue', selectRow.userid);
 							$("#edit_name").textbox('setValue', selectRow.username);
@@ -366,28 +350,10 @@
 							$("#edit_sex").textbox('setValue', selectRow.sex);
 							$("#edit_phone").textbox('setValue', selectRow.mobile);
 							$("#edit_qq").textbox('setValue', selectRow.qq);
-
-							var div = document.createElement("div"),
-									img1 = document.createElement("img");
-							//div.className = "pic";
-							img1.src=img;
-							$(img1).css("width","200px");
-							$(img1).css("hight","200px");
-							div.appendChild(img1);
-							$("#imgd").append(div);
-
-							//$("#edit_photo").attr("src", img);
-							// $(".imgDiv").
-
-							$("#edit-id").val(selectRow.id);
-							$("#set-photo-id").val(selectRow.id);
 							var clazzid = selectRow.clazzId;
 							setTimeout(function(){
 								$("#edit_clazzList").combobox('setValue', clazzid);
 							}, 100);
-						}
-					});
-
 				},
 				onClose: function(){
 					$("#edit_name").textbox('setValue', "");
@@ -429,9 +395,7 @@
 
 <!-- 添加窗口 -->
 <div id="addDialog" style="padding: 10px;">
-<!--	<div style=" position: absolute; margin-left: 560px; width: 200px; border: 1px solid #EEF4FF" id="photo">-->
-<!--		<img alt="照片" style="max-width: 200px; max-height: 400px;" title="照片" src="PhotoServlet?method=getPhoto" />-->
-<!--	</div>-->
+
 	<form id="addForm" method="post" enctype="multipart/form-data">
 		<table id="addTable" border=0 style="width:800px; table-layout:fixed;" cellpadding="6" >
 			<tr>
@@ -473,15 +437,7 @@
 
 <!-- 修改窗口 -->
 <div id="editDialog" style="padding: 10px">
-<!--	<div style=" position: absolute; margin-left: 560px; width: 200px; border: 1px solid #EEF4FF">-->
-<!--		<img id="edit_photo" alt="照片" style="max-width: 200px; max-height: 400px;" title="照片" src="" />-->
-<!--		<form id="uploadForm" method="post" enctype="multipart/form-data" action="PhotoServlet?method=SetPhoto" target="photo_target">-->
-<!--			&lt;!&ndash; StudentServlet?method=SetPhoto &ndash;&gt;-->
-<!--			<input type="hidden" name="tid" id="set-photo-id">-->
-<!--			<input class="easyui-filebox" name="photo" data-options="prompt:'选择照片'" style="width:200px;">-->
-<!--			<input id="upload-photo-btn" onClick="uploadPhoto()" class="easyui-linkbutton" style="width: 50px; height: 24px;" type="button" value="上传"/>-->
-<!--		</form>-->
-<!--	</div>-->
+
 	<form id="editForm" method="post" enctype="multipart/form-data">
 		<table id="editTable" border=0 style="width:800px; table-layout:fixed;" cellpadding="6" >
 			<tr>

@@ -464,21 +464,5 @@
     </form>
 </div>
 
-<!-- 导入数据窗口 -->
-<div id="importDialog" style="padding: 10px">
-    <form id="importForm" method="post" enctype="multipart/form-data" th:action="@{/score/importScore}" target="import_target">
-        <table cellpadding="8" >
-            <tr>
-                <td>请选择文件:</td>
-                <td>
-                    <input class="easyui-filebox" name="importScore" data-options="required:true,min:0,precision:2, missingMessage:'请选择文件',prompt:'选择文件'" style="width:200px;">
-                </td>
-            </tr>
-
-        </table>
-    </form>
-</div>
-<!-- 提交表单处理iframe框架 -->
-<iframe id="import_target" name="import_target"></iframe>
 </body>
 </html>

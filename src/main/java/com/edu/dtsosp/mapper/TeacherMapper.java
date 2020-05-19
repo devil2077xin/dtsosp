@@ -21,5 +21,5 @@ public interface TeacherMapper {
 
     Teacher findByTeacher(Teacher teacher);
 
-    int editPswdByTeacher(Teacher teacher);
+
 }

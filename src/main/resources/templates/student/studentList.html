@@ -22,7 +22,7 @@
 				method: "post",
 				url:[[@{/student/getStudentList}]],
 				idField:'id',
-				singleSelect:false,//是否单选
+				singleSelect:true,//是否单选
 				pagination:true,//分页控件
 				rownumbers:true,//行号
 				sortName:'id',
@@ -209,6 +209,7 @@
                                             $("#add_userid").textbox('setValue', "");
 											$("#add_number").textbox('setValue', "");
 											$("#add_name").textbox('setValue', "");
+                                            $("#add_password").textbox('setValue', "");
 											$("#add_sex").textbox('setValue', "男");
 											$("#add_phone").textbox('setValue', "");
 											$("#add_qq").textbox('setValue', "");
@@ -237,6 +238,7 @@
                             $("#add_userid").textbox('setValue', "");
 						    $("#add_number").textbox('setValue', "");
 							$("#add_name").textbox('setValue', "");
+                            $("#add_password").textbox('setValue', "");
 							$("#add_phone").textbox('setValue', "");
 							$("#add_qq").textbox('setValue', "");
 							//重新加载年级
@@ -266,12 +268,13 @@
 						iconCls:'icon-user_add',
 						handler:function(){
 							var validate = $("#editForm").form("validate");
-							var clazzid = $("#edit_clazzList").combobox("getValue");
 							if(!validate){
 								$.messager.alert("消息提醒","请检查你输入的数据!","warning");
 								return;
 							} else{
+                                var id = $("#dataList").datagrid("getSelected").id;
 								var formData = new FormData($( "#editForm" )[0]);
+                                formData.append("id",id);
 								$.ajax({
 									type: "post",
 									url: [[@{/student/editStudent}]],
@@ -285,14 +288,15 @@
 											$.messager.alert("消息提醒",data.message,"info");
 											//关闭窗口
 											$("#editDialog").dialog("close");
-											//刷新表格
-											$('#dataList').datagrid("options").queryParams = {clazzid: clazzid};
-											$("#dataList").datagrid("reload");
-											$("#dataList").datagrid("uncheckAll");
+                                            //清空原表格数据
+                                            $("#edit_name").textbox('setValue', "");
+                                            $("#edit_sex").textbox('setValue', "男");
+                                            $("#edit_phone").textbox('setValue', "");
+                                            $("#edit_qq").textbox('setValue', "");
 
-											setTimeout(function(){
-												$("#clazzList").combobox('setValue', clazzid);
-											}, 100);
+                                            //重新刷新页面数据
+                                            $('#dataList').datagrid("reload");
+                                            $('#dataList').datagrid("uncheckAll");
 
 										} else{
 											$.messager.alert("消息提醒",data.message,"warning");
@@ -309,56 +313,36 @@
 						iconCls:'icon-reload',
 						handler:function(){
 							//清空表单
-							$("#imgd div").remove();
                             $("#edit_userid").textbox('setValue', "");
 							$("#edit_name").textbox('setValue', "");
 							$("#edit_sex").textbox('setValue', "男");
 							$("#edit_phone").textbox('setValue', "");
 							$("#edit_qq").textbox('setValue', "");
-							$("#edit_gradeList").combobox("clear");
-							$("#edit_gradeList").combobox("reload");
 						}
-					}
+					},
 				],
 				onBeforeOpen: function(){
 					var selectRow = $("#dataList").datagrid("getSelected");
-					$("#imgd div").remove();
-					$.ajax({
-						type: "post",
-						url: [[@{/system/getPhoto}]]+"?sid="+selectRow.id,
-						success: function(data){
-							var i = [[@{/upload/imgs/}]];
-							var imgUrl = data.imgurl;
-							var img = i + imgUrl;
 							//设置值
                             $("#edit_userid").textbox('setValue', selectRow.userid);
 							$("#edit_name").textbox('setValue', selectRow.username);
 							$("#edit_sex").textbox('setValue', selectRow.sex);
 							$("#edit_mobile").textbox('setValue', selectRow.mobile);
 							$("#edit_qq").textbox('setValue', selectRow.qq);
-
-							var div = document.createElement("div"),
-									img1 = document.createElement("img");
-							//div.className = "pic";
-							img1.src=img;
-							$(img1).css("width","200px");
-							$(img1).css("hight","200px");
-							div.appendChild(img1);
-							$("#imgd").append(div);
-
-							//$("#edit_photo").attr("src", img);
-							// $(".imgDiv").
-
-							$("#edit-id").val(selectRow.id);
-							$("#set-photo-id").val(selectRow.id);
 							var clazzid = selectRow.clazzId;
 							setTimeout(function(){
 								$("#edit_clazzList").combobox('setValue', clazzid);
 							}, 100);
-						}
-					});
-				}
+				},
+                onClose: function(){
+                    $("#edit_name").textbox('setValue', "");
+                    $("#edit_phone").textbox('setValue', "");
+                    $("#edit_qq").textbox('setValue', "");
+                }
 			});
+
+
+
 			//搜索按钮监听事件
 			$("#search-btn").click(function(){
 				$('#dataList').datagrid('load',{
@@ -393,18 +377,6 @@
 
 <!-- 添加学生窗口 -->
 <div id="addDialog" style="padding: 10px">
-<!--	<div style="float: right; margin: 20px 20px 0 0; width: 200px; border: 1px solid #EBF3FF" id="photo">-->
-<!--		<img alt="照片" style="max-width: 200px; max-height: 400px;" title="照片" src="PhotoServlet?method=getPhoto" />-->
-<!--	</div>-->
-<!--	<div style="float: right; margin: 20px 20px 0 0; width: 200px; border: 1px solid #EBF3FF">-->
-<!--		<img id="edit_photo" alt="照片" style="max-width: 200px; max-height: 400px;" title="照片" src="" />-->
-<!--		<form id="uploadForm" method="post" enctype="multipart/form-data" action="PhotoServlet?method=SetPhoto" target="photo_target">-->
-<!--			&lt;!&ndash; StudentServlet?method=SetPhoto &ndash;&gt;-->
-<!--			<input type="hidden" name="sid" id="set-photo-id">-->
-<!--			<input class="easyui-filebox" name="photo" data-options="prompt:'选择照片'" style="width:200px;">-->
-<!--			<input id="upload-photo-btn" onClick="uploadPhoto()" class="easyui-linkbutton" style="width: 50px; height: 24px;" type="button" value="上传"/>-->
-<!--		</form>-->
-<!--	</div>-->
 	<form id="addForm" method="post" enctype="multipart/form-data">
 		<table cellpadding="8" >
 
@@ -444,15 +416,6 @@
 
 <!-- 修改学生窗口 -->
 <div id="editDialog" style="padding: 10px">
-<!--	<div style="float: right; margin: 20px 20px 0 0; width: 200px; border: 1px solid #EBF3FF">-->
-<!--		<img id="edit_photo" alt="照片" style="max-width: 200px; max-height: 400px;" title="照片" src="" />-->
-<!--		<form id="uploadForm" method="post" enctype="multipart/form-data" action="PhotoServlet?method=SetPhoto" target="photo_target">-->
-<!--			&lt;!&ndash; StudentServlet?method=SetPhoto &ndash;&gt;-->
-<!--			<input type="hidden" name="sid" id="set-photo-id">-->
-<!--			<input class="easyui-filebox" name="photo" data-options="prompt:'选择照片'" style="width:200px;">-->
-<!--			<input id="upload-photo-btn" onClick="uploadPhoto()" class="easyui-linkbutton" style="width: 50px; height: 24px;" type="button" value="上传"/>-->
-<!--		</form>-->
-<!--	</div>-->
 	<form id="editForm" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="id" id="edit-id">
 		<table cellpadding="8" >
@@ -483,7 +446,5 @@
 		</table>
 	</form>
 </div>
-<!-- 提交表单处理iframe框架 -->
-<iframe id="photo_target" name="photo_target"></iframe>
 </body>
 </html>

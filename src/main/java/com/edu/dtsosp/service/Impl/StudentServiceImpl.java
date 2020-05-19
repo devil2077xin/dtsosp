@@ -77,11 +77,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int editPswdByStudent(Student student) {
-        return studenetMapper.editPswdByStudent(student);
-    }
-
-    @Override
     public int findByName(String name) {
         return studenetMapper.findByName(name);
     }

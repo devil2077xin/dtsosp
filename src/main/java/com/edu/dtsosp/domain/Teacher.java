@@ -10,7 +10,6 @@ public class Teacher {
     private String sex = "男";
     private String mobile;
     private String qq;
-    private String photo;//头像
 
     public int getId() {
         return id;
@@ -76,11 +75,4 @@ public class Teacher {
         this.qq = qq;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 }

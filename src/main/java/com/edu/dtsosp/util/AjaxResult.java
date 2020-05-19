@@ -9,7 +9,6 @@ import java.util.Map;
 public class AjaxResult {
     private boolean success;
     private String message;
-    private String imgurl;
     private String type;
     private Map data;
     private String status;
@@ -29,14 +28,6 @@ public class AjaxResult {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getImgurl() {
-        return imgurl;
-    }
-
-    public void setImgurl(String imgurl) {
-        this.imgurl = imgurl;
     }
 
     public String getType() {

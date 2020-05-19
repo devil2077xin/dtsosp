@@ -11,7 +11,6 @@
         <result column="sex" property="sex"/>
         <result column="mobile" property="mobile"/>
         <result column="qq" property="qq"/>
-        <result column="photo" property="photo"/>
     </resultMap>
 
     <select id="queryList" resultMap="StudentInfo" >
@@ -35,8 +34,8 @@
     </select>
 
     <insert id="addStudent" parameterType="Student">
-        insert into t_student(userid,username,password,clazz_id,sex,mobile,qq,photo)
-        values(#{userid},#{username},#{password},#{clazzId},#{sex},#{mobile},#{qq},#{photo})
+        insert into t_student(userid,username,password,clazz_id,sex,mobile,qq)
+        values(#{userid},#{username},#{password},#{clazzId},#{sex},#{mobile},#{qq})
     </insert>
 
     <delete id="deleteStudent" parameterType="java.util.ArrayList">
@@ -70,9 +69,6 @@
             <if test="qq != null">
                 qq = #{qq},
             </if>
-            <if test="photo != null">
-                photo = #{photo},
-            </if>
         </set>
         where id = #{id}
     </update>
@@ -89,10 +85,6 @@
     <select id="isStudentByClazzId" parameterType="int" resultMap="StudentInfo">
         select * from t_student where clazz_id = #{id}
     </select>
-
-    <update id="editPswdByStudent" parameterType="Student">
-        update  t_student set password = #{password} where id = #{id}
-    </update>
 
     <select id="findByName" parameterType="java.lang.String" resultType="int">
         select id from t_student where username = #{name}

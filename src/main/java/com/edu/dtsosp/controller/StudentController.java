@@ -86,16 +86,7 @@ public class StudentController {
         AjaxResult ajaxResult = new AjaxResult();
         try {
             List<Integer> ids = data.getIds();
-            Iterator<Integer> iterator = ids.iterator();
-            File fileDir = UploadUtil.getImgDirFile();
-            for(Integer id : ids){
-                Student byId = studentService.findById(id);
-                    File file = new File(fileDir.getAbsolutePath() + File.separator + byId.getPhoto());
-                    if(file != null){
-                        file.delete();
-                    }
 
-            }
             int count = studentService.deleteStudent(ids);
             if(count > 0){
                 ajaxResult.setSuccess(true);
@@ -117,14 +108,13 @@ public class StudentController {
 
     /**
      * 添加学生
-     * @param files
      * @param student
      * @return
      * @throws IOException
      */
     @RequestMapping("/addStudent")
     @ResponseBody
-    public AjaxResult addStudent(@RequestParam("file") MultipartFile[] files,Student student) throws IOException {
+    public AjaxResult addStudent(Student student) throws IOException {
 
         AjaxResult ajaxResult = new AjaxResult();
 
@@ -150,45 +140,13 @@ public class StudentController {
 
     /**
      * 修改学生信息
-     * @param files
      * @param student
      * @return
      */
     @PostMapping("/editStudent")
     @ResponseBody
-    public AjaxResult editStudent(@RequestParam("file") MultipartFile[] files,Student student){
+    public AjaxResult editStudent(Student student){
         AjaxResult ajaxResult = new AjaxResult();
-
-        // 存放上传图片的文件夹
-        File fileDir = UploadUtil.getImgDirFile();
-        for(MultipartFile fileImg : files){
-
-            String name = fileImg.getOriginalFilename();
-            if(name.equals("")){
-                break;
-            }
-
-            // 拿到文件名
-            String extName = fileImg.getOriginalFilename().substring(fileImg.getOriginalFilename().lastIndexOf("."));
-            String uuidName = UUID.randomUUID().toString();
-
-            try {
-                // 构建真实的文件路径
-                File newFile = new File(fileDir.getAbsolutePath() + File.separator +uuidName+ extName);
-                // 上传图片到 -》 “绝对路径”
-                fileImg.transferTo(newFile);
-
-                Student byId = studentService.findById(student.getId());
-                File file = new File(fileDir.getAbsolutePath() + File.separator + byId.getPhoto());
-                if(file != null){
-                    file.delete();
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            student.setPhoto(uuidName+extName);
-        }
 
         try{
             int count = studentService.editStudent(student);

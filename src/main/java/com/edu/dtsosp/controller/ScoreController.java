@@ -65,12 +65,11 @@ public class ScoreController {
         paramMap.put("pageno",page);
         paramMap.put("pagesize",rows);
         if(!studentid.equals("0"))  paramMap.put("studentid",studentid);
-       // if(!termid.equals("0"))  paramMap.put("termid",termid);
 
         //判断是老师还是学生权限
         Student student = (Student) session.getAttribute(Const.STUDENT);
         if(!StringUtils.isEmpty(student)){
-            //是学生权限，只能查询自己的信息
+            //学生权限，只能查询自己的信息
             paramMap.put("studentid",student.getId());
         }
         PageBean<Score> pageBean = scoreService.queryPage(paramMap);
@@ -96,13 +95,12 @@ public class ScoreController {
         AjaxResult ajaxResult = new AjaxResult();
         //判断是否已录入成绩
         if(scoreService.isScore(score)){
-            //true为已签到
+
             ajaxResult.setSuccess(false);
             ajaxResult.setMessage("已录入，请勿重复录入！");
         }else{
             int count = scoreService.addScore(score);
             if(count > 0){
-                //签到成功
                 ajaxResult.setSuccess(true);
                 ajaxResult.setMessage("录入成功");
             }else{
@@ -126,7 +124,6 @@ public class ScoreController {
         try {
             int count = scoreService.editScore(score);
             if(count > 0){
-                //签到成功
                 ajaxResult.setSuccess(true);
                 ajaxResult.setMessage("修改成功");
             }else{
@@ -165,136 +162,6 @@ public class ScoreController {
             ajaxResult.setMessage("系统错误，请重新删除");
         }
         return ajaxResult;
-    }
-
-    /**
-     * 导入xlsx表 并存入数据库
-     * @param importScore
-     * @param response
-     */
-    @PostMapping("/importScore")
-    @ResponseBody
-    public void importScore(@RequestParam("importScore") MultipartFile importScore, HttpServletResponse response){
-        response.setCharacterEncoding("UTF-8");
-        try {
-            InputStream inputStream = importScore.getInputStream();
-            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(inputStream);
-            XSSFSheet sheetAt = xssfWorkbook.getSheetAt(0);
-            int count = 0;
-            String errorMsg = "";
-            for(int rowNum = 1; rowNum <= sheetAt.getLastRowNum(); rowNum++){
-                XSSFRow row = sheetAt.getRow(rowNum); // 获取第rowNum行
-                //第0列
-                XSSFCell cell = row.getCell(0); // 获取第rowNum行的第0列 即坐标（rowNum，0）
-                if(cell == null){
-                    errorMsg += "第" + rowNum + "行学生缺失！\n";
-                    continue;
-                }
-                //第1列
-                cell = row.getCell(1);
-                if(cell == null){
-                    errorMsg += "第" + rowNum + "行课程缺失！\n";
-                    continue;
-                }
-                //第2列
-                cell = row.getCell(2);
-                if(cell == null){
-                    errorMsg += "第" + rowNum + "行成绩缺失！\n";
-                    continue;
-                }
-                double scoreValue = cell.getNumericCellValue();
-                //第3列
-                cell = row.getCell(3);
-                String remark = null;
-                if(cell != null){
-                    remark = cell.getStringCellValue();
-                }
-
-                //将学生，课程转换为id,存入数据库
-                // 1)首先获取对应的id
-                int studentId = studentService.findByName(row.getCell(0).getStringCellValue());
-                //int courseId = termService.findByName(row.getCell(1).getStringCellValue());
-                // 2)判断是否已存在数据库中
-                Score score = new Score();
-                score.setStudentId(studentId);
-                score.setScore1(scoreValue);
-                score.setRemark(remark);
-                if(!scoreService.isScore(score)){
-                    // 3)存入数据库
-                    int i = scoreService.addScore(score);
-                    if(i > 0){
-                        count ++ ;
-                    }
-                }else{
-                    errorMsg += "第" + rowNum + "行已录入，不重复录入！\n";
-                }
-            }
-            errorMsg += "成功录入" + count + "条成绩信息！";
-            response.getWriter().write("<div id='message'>"+errorMsg+"</div>");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            try {
-                response.getWriter().write("<div id='message'>上传错误</div>");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-    }
-
-
-    /**
-     * 导出xlsx表
-     * @param response
-     * @param score
-     * @param session
-     */
-    @RequestMapping("/exportScore")
-    @ResponseBody
-    private void exportScore(HttpServletResponse response, Score score, HttpSession session) {
-        //获取当前登录用户类型
-        Student student = (Student) session.getAttribute(Const.STUDENT);
-        if(!StringUtils.isEmpty(student)){
-            //如果是学生，只能查看自己的信息
-            score.setStudentId(student.getId());
-        }
-        try {
-            response.setHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode("score_list_sid_"+score.getStudentId()+"_cid_"+score.getStudentId()+".xls", "UTF-8"));
-            response.setHeader("Connection", "close");
-            response.setHeader("Content-Type", "application/octet-stream");
-            ServletOutputStream outputStream = response.getOutputStream();
-            List<Score> scoreList = scoreService.getAll(score);
-            XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
-            XSSFSheet createSheet = xssfWorkbook.createSheet("成绩列表");
-            XSSFRow createRow = createSheet.createRow(0);
-            createRow.createCell(0).setCellValue("学生");
-            createRow.createCell(1).setCellValue("成绩1");
-            createRow.createCell(2).setCellValue("成绩2");
-            createRow.createCell(3).setCellValue("成绩3");
-            createRow.createCell(4).setCellValue("成绩4");
-            createRow.createCell(5).setCellValue("成绩5");
-            createRow.createCell(6).setCellValue("成绩6");
-            createRow.createCell(7).setCellValue("备注");
-            //实现将数据装入到excel文件中
-            int row = 1;
-            for( Score s:scoreList){
-                createRow = createSheet.createRow(row++);
-                createRow.createCell(0).setCellValue(s.getStudentName());
-                createRow.createCell(1).setCellValue(s.getScore1());
-                createRow.createCell(2).setCellValue(s.getScore2());
-                createRow.createCell(3).setCellValue(s.getScore3());
-                createRow.createCell(4).setCellValue(s.getScore4());
-                createRow.createCell(5).setCellValue(s.getScore5());
-                createRow.createCell(6).setCellValue(s.getScore6());
-                createRow.createCell(7).setCellValue(s.getRemark());
-            }
-            xssfWorkbook.write(outputStream);
-            outputStream.flush();
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }

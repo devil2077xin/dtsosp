@@ -20,5 +20,4 @@ public interface TeacherService {
 
     Teacher findByTeacher(Teacher teacher);
 
-    int editPswdByTeacher(Teacher teacher);
 }
