@@ -29,8 +29,7 @@
     $(function(){
         //点击图片切换验证码
         $("#vcodeImg").click(function(){
-            //this.src="@{/system/checkcode}&t="+new Date().getTime();
-            var uri = /*[[@{/system/checkCode}]]*/;
+            var uri = [[@{/system/checkCode}]];
             this.src = uri + '?t=' + new Date().getTime();
             console.log(this.src);
         });
@@ -39,12 +38,12 @@
         $("#submitBtn").click(function(){
         	$.ajax({
         		type: "post",
-        		url: /*[[@{/system/login}]]*/,
+        		url: [[@{/system/login}]],
         		data: $("#form").serialize(),
         		dataType: "json", //返回数据类型
         		success: function(data){
         			if(data.success){
-                        window.location.href = /*[[@{/system/index}]]*/;
+                        window.location.href = [[@{/system/index}]];
                     }else{
                         $.messager.alert("消息提醒", data.message, "warning");
                         $("#vcodeImg").click();//切换验证码
@@ -76,7 +75,7 @@
       <div class="row cl">
         <label class="form-label col-3"><i class="Hui-iconfont">&#xe62c;</i></label>
         <div class="formControls col-8">
-          <input id="username" name="username" type="text" placeholder="用户名" class="input-text size-L">
+          <input id="userid" name="userid" type="text" placeholder="用户名" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">

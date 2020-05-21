@@ -4,13 +4,9 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/dtsosp?setUnicode=true&characterEncoding=utf8&useAffectedRows=true&useSSL=false
     username: root
     password: root
-  servlet:
-    multipart:
-      max-file-size: 30Mb
-      max-request-size: 30Mb
-
 
 mybatis:
   type-aliases-package: com.edu.dtsosp.domain
   mapper-locations: classpath:mapper/*.xml
-
+server:
+  port: 8080

@@ -56,7 +56,6 @@ public class TeacherController {
         if(!StringUtils.isEmpty(teacherName))  paramMap.put("username",teacherName);
         if(!clazzid.equals("0"))  paramMap.put("clazzid",clazzid);
 
-        //判断是老师还是学生权限
         Teacher teacher = (Teacher) session.getAttribute(Const.TEACHER);
         if(!StringUtils.isEmpty(teacher)){
             //是老师权限，只能查询自己的信息

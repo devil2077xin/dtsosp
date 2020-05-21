@@ -85,7 +85,7 @@
 
 
     <select id="findByTeacher" parameterType="Teacher" resultType="Teacher">
-        select * from t_teacher where username = #{username} and password = #{password}
+        select * from t_teacher where userid = #{userid} and password = #{password}
     </select>
 
 </mapper>

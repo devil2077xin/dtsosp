@@ -57,5 +57,8 @@
         </where>
     </select>
 
+    <select id="findDynamicTrace" resultType="com.edu.dtsosp.mapper.ScoreMapper">
+            select * from t_score where id=#{id} order by id asc
+    </select>
 
 </mapper>

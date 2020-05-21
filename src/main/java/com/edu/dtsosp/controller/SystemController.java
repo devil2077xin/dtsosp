@@ -48,10 +48,10 @@ public class SystemController {
      */
     @PostMapping("/login")
     @ResponseBody
-    public AjaxResult submitlogin(String username, String password, String code, String type,
+    public AjaxResult submitlogin(String userid, String password, String code, String type,
                                   HttpSession session){
         AjaxResult ajaxResult = new AjaxResult();
-        if(StringUtils.isEmpty(username)){
+        if(StringUtils.isEmpty(userid)){
             ajaxResult.setSuccess(false);
             ajaxResult.setMessage("请填写用户名");
             return ajaxResult;
@@ -82,7 +82,7 @@ public class SystemController {
             case "1":{ //管理员
                 Admin admin = new Admin();
                 admin.setPassword(password);
-                admin.setUsername(username);
+                admin.setUserid(userid);
                 Admin ad = adminService.findByAdmin(admin);
                 if(StringUtils.isEmpty(ad)){
                     ajaxResult.setSuccess(false);
@@ -97,7 +97,7 @@ public class SystemController {
             case "2":{
                 Student student = new Student();
                 student.setPassword(password);
-                student.setUsername(username);
+                student.setUserid(userid);
                 Student st = studentService.findByStudent(student);
                 if(StringUtils.isEmpty(st)){
                     ajaxResult.setSuccess(false);
@@ -112,7 +112,7 @@ public class SystemController {
             case "3":{
                 Teacher teacher = new Teacher();
                 teacher.setPassword(password);
-                teacher.setUsername(username);
+                teacher.setUserid(userid);
                 Teacher tr = teacherService.findByTeacher(teacher);
                 if(StringUtils.isEmpty(tr)){
                     ajaxResult.setSuccess(false);

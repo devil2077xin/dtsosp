@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.edu.dtsosp.mapper.AdminMapper">
     <select id="findByAdmin" parameterType="Admin" resultType="Admin">
-        select * from t_admin where username = #{username} and password = #{password}
+        select * from t_admin where userid = #{userid} and password = #{password}
     </select>
 
     <update id="editPswdByAdmin" parameterType="Admin">

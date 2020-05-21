@@ -96,4 +96,9 @@ public class Score {
     public void setStudentName(String studentName) {
         this.studentName = studentName;
     }
+
+    @Override
+    public String toString(){
+        return "Score[id="+id+",score1"+score1+",score2"+score2+",score3"+score3+",score4"+score4+",score5"+score5+",score6"+score6;
+    }
 }

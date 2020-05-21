@@ -21,4 +21,6 @@ public interface ScoreMapper {
 
     List<Score> getAll(Score score);
 
+    public List<Score> findDynamicTrace(Integer id);
+
 }

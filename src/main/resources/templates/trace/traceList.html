@@ -116,24 +116,24 @@
             });
 
 
-
-            // //搜索按钮监听事件
-            // $(".search-score-btn").click(function(){
-            //     var searchKey = $(this).attr('key');
+            // $("#search-btn").click(function(){
+            //         $('#charts-div').load('load',{
+            //         studentid: $("#studentList").combobox('getValue') == '' ? 0 : $("#studentList").combobox('getValue'),
+            //
             //     var studentId = $("#studentList").combobox('getValue');
             //     if(studentId == null || studentId == ''){
-            //         $.messager.alert("消息提醒","请选择课程!","info");
+            //         $.messager.alert("消息提醒","！！！","info");
             //         return;
             //     }
             //     $.ajax({
-            //         url:   [[@{/trace/getTraceList}]] + "?studentId" + studentId +"&searchType"+searchKey,
+            //         url:   [[@{/trace/getDynamicList}]] + "?studentId" + studentId
             //         dataType:'json',
             //         success:function(rst){
             //         if(rst.type == "success"){
             //             var option;
             //                 option = {
             //                     title: {
-            //                         text: '课程：'+rst.studentName
+            //                         text: '学生：'+rst.studentName
             //                     },
             //                     tooltip: {
             //                         trigger: 'axis',
@@ -145,14 +145,14 @@
             //                         }
             //                     },
             //                     legend: {
-            //                         data:['成绩区间分布']
+            //                         data:['成绩动态']
             //                     },
             //                     xAxis: {
             //                         data: rst.rangeList
             //                     },
             //                     yAxis: {type: 'value'},
             //                     series: [{
-            //                         name: '成绩区间分布',
+            //                         name: '成绩动态',
             //                         type: 'bar',
             //                         data: rst.numberList
             //                     }]
@@ -165,6 +165,7 @@
             //         }
             //     }
             // )
+            // });
             // });
 
 

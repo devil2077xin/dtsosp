@@ -12,7 +12,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -26,54 +28,30 @@ public class TraceController {
     private StudentService studentService;
 
 
+
     @GetMapping("/trace_list")
     public String traceList() {
         return "/trace/traceList";
     }
 
-//    @RequestMapping("/getTraceList")
-//    @ResponseBody
-//    public Object getTraceList()
-//    {
-//        AjaxResult ajaxResult = new AjaxResult();
-//
-//        Score score=new Score();
-//        List<Score> scoreList = scoreService.getAll(score);
-//
-//        List<Double> numberList= new ArrayList<Double>();
-//        numberList.add(0.0);
-//        numberList.add(0.0);
-//        numberList.add(0.0);
-//        numberList.add(0.0);
-//        numberList.add(0.0);
-//        numberList.add(0.0);
-//
-//        List<String> rangeStringList= new ArrayList<String>();
-//        rangeStringList.add("第一次");
-//        rangeStringList.add("第二次");
-//        rangeStringList.add("第三次");
-//        rangeStringList.add("第四次");
-//        rangeStringList.add("第五次");
-//        rangeStringList.add("第六次");
-//
-//        String studentName= "";
-//
-//        for(Score sc:scoreList){
-//            studentName=sc.getStudentName();
-//            numberList.set(0,sc.getScore1());
-//            numberList.set(1,sc.getScore2());
-//            numberList.set(2,sc.getScore3());
-//            numberList.set(3,sc.getScore4());
-//            numberList.set(4,sc.getScore5());
-//            numberList.set(5,sc.getScore6());
-//        }
-//        Map<String,Object> resultMap = new HashMap<String, Object>();
-//        resultMap.put("studentName",studentName);
-//        resultMap.put("numberList",numberList);
-//        resultMap.put("rangList",rangeStringList);
-//        resultMap.put("type","succes");
-//        return resultMap;
-//    }
+    @RequestMapping("/getDynamicList")
+    @ResponseBody
+    public List<Score> getDynamicList(){
+        ArrayList<Score> dynamicArrayList = new ArrayList<Score>();
+        Score scorea= new Score();
+        scorea.setId(2);
+        scorea.setScore1(55);
+        scorea.setScore2(56);
+        scorea.setScore3(66);
+        scorea.setScore4(67);
+        scorea.setScore5(77);
+        scorea.setScore6(78);
+
+        dynamicArrayList.add(scorea);
+
+        return dynamicArrayList;
+
+    }
 
     @RequestMapping("/getTraceList")
     @ResponseBody
@@ -101,7 +79,9 @@ public class TraceController {
             result.put("rows",pageBean.getDatas());
             return result;
         }
-
     }
+
+
+
 
 }

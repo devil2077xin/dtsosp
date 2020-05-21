@@ -6,6 +6,8 @@ public class Admin {
 	private String userid;
 	private String username;
 	private String password;
+	private Integer status;
+
 	public Long getId() {
 		return id;
 	}
@@ -13,9 +15,7 @@ public class Admin {
 		this.id = id;
 	}
 	public String getUserid() { return userid; }
-	public void setUserid(String userid) {
-		this.username = userid;
-	}
+	public void setUserid(String userid) { this.userid = userid; }
 	public String getUsername() {
 		return username;
 	}
@@ -28,5 +28,6 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public Integer getStatus() { return status; }
+	public void setStatus(Integer status) { this.status = status; }
 }

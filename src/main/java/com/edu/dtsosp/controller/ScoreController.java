@@ -59,7 +59,6 @@ public class ScoreController {
     public Object getScoreList(@RequestParam(value = "page", defaultValue = "1")Integer page,
                                     @RequestParam(value = "rows", defaultValue = "100")Integer rows,
                                     @RequestParam(value = "studentid", defaultValue = "0")String studentid,
-                                   // @RequestParam(value = "termid", defaultValue = "0")String termid,
                                     String from, HttpSession session){
         Map<String,Object> paramMap = new HashMap();
         paramMap.put("pageno",page);
