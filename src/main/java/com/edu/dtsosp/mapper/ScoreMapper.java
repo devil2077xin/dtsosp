@@ -5,7 +5,6 @@ import com.edu.dtsosp.domain.Score;
 import java.util.List;
 import java.util.Map;
 
-
 public interface ScoreMapper {
     List<Score> queryList(Map<String, Object> paramMap);
 
@@ -19,8 +18,8 @@ public interface ScoreMapper {
 
     int deleteScore(Integer id);
 
-    List<Score> getAll(Score score);
+    List<Score> getAll( );
 
-    public List<Score> findDynamicTrace(Integer id);
+    Score findDynamicTrace(int id);
 
 }

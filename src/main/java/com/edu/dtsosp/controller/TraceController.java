@@ -8,6 +8,7 @@ import com.edu.dtsosp.util.Const;
 import com.edu.dtsosp.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,24 +35,33 @@ public class TraceController {
         return "/trace/traceList";
     }
 
-    @RequestMapping("/getDynamicList")
+    @RequestMapping("/show")
     @ResponseBody
-    public List<Score> getDynamicList(){
-        ArrayList<Score> dynamicArrayList = new ArrayList<Score>();
-        Score scorea= new Score();
-        scorea.setId(2);
-        scorea.setScore1(55);
-        scorea.setScore2(56);
-        scorea.setScore3(66);
-        scorea.setScore4(67);
-        scorea.setScore5(77);
-        scorea.setScore6(78);
-
-        dynamicArrayList.add(scorea);
-
-        return dynamicArrayList;
-
+    public List<Score>  findById(Model model){
+        List<Score> scores = scoreService.getAll();
+        System.err.println(scores.toString());
+        return scores;
     }
+
+//    @RequestMapping("/getDynamicList")
+//    @ResponseBody
+//    public List<Score> getDynamicList(){
+//
+//        ArrayList<Score> dynamicArrayList = new ArrayList<Score>();
+//        Score scorea= new Score();
+//        scorea.setId(2);
+//        scorea.setScore1(55);
+//        scorea.setScore2(56);
+//        scorea.setScore3(66);
+//        scorea.setScore4(67);
+//        scorea.setScore5(77);
+//        scorea.setScore6(78);
+//
+//        dynamicArrayList.add(scorea);
+//
+//        return dynamicArrayList;
+//
+//    }
 
     @RequestMapping("/getTraceList")
     @ResponseBody

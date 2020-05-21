@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>成绩列表</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/easyui/themes/default/easyui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/easyui/themes/icon.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/easyui/css/demo.css}">
+    <script type="text/javascript" th:src="@{/easyui/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/easyui/jquery.easyui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/easyui/js/validateExtends.js}"></script>
+    <script type="text/javascript" th:src="@{/highcharts/highcharts.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        $(function() {
+
+        //     $('#dataList').datagrid({
+        //         title:'成绩信息列表',
+        //         iconCls:'icon-more',//图标
+        //         border: true,
+        //         collapsible: false,//是否可折叠的
+        //         fit: true,//自动大小
+        //         method: "post",
+        //         url:[[@{/score/getScoreList}]],
+        //     idField:'id',
+        //         singleSelect: true,//是否单选
+        //         pagination: true,//分页控件
+        //         rownumbers: true,//行号
+        //         sortName:'id',
+        //         sortOrder:'DESC',
+        //         remoteSort: false,
+        //         columns: [
+        //         [
+        //             {field:'chk',checkbox: true,width:50},
+        //             {field:'id',title:'序号',width:50},
+        //             {field:'studentId',title:'学生',width:50,
+        //                 formatter: function(value,row,index){
+        //                     if (row.studentId){
+        //                         var studentList = $("#studentList").combobox("getData");
+        //                         for(var i=0;i<studentList.length;i++ ){
+        //                             //console.log(clazzList[i]);
+        //                             if(row.studentId == studentList[i].id)return studentList[i].username;
+        //                         }
+        //                         return row.studentId;
+        //                     } else {
+        //                         return 'not found';
+        //                     }
+        //                 }
+        //             },
+        //             {field:'score1',title:'成绩1',width:50},
+        //             {field:'score2',title:'成绩2',width:50},
+        //             {field:'score3',title:'成绩3',width:50},
+        //             {field:'score4',title:'成绩4',width:50},
+        //             {field:'score5',title:'成绩5',width:50},
+        //             {field:'score6',title:'成绩6',width:50},
+        //             {field:'remark',title:'备注',width:200}
+        //         ]
+        //     ],
+        //         toolbar: "#toolbar",
+        //         onBeforeLoad : function(){
+        //         try{
+        //             $("#studentList").combobox("getData")
+        //         }catch(err){
+        //             preLoadClazz();
+        //         }
+        //     }
+        // });
+        //
+        //     //设置分页控件
+        //     var p = $('#dataList').datagrid('getPager');
+        //     $(p).pagination({
+        //         pageSize: 10,//每页显示的记录条数，默认为10
+        //         pageList: [10,20,30,50,100],//可以设置每页记录条数的列表
+        //         beforePageText: '第',//页数文本框前显示的汉字
+        //         afterPageText: '页    共 {pages} 页',
+        //         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
+        //     });
+        //     //提前加载学生和课程信息
+        //
+        //     function preLoadClazz(){
+        //         $("#studentList").combobox({
+        //             width: "150",
+        //             height: "25",
+        //             valueField: "id",
+        //             textField: "username",
+        //             multiple: false, //可多选
+        //             editable: false, //不可编辑
+        //             method: "post",
+        //             url: [[@{/student/getStudentList(from=combox)}]],
+        //
+        //     });
+        //     }
+
+
+            $("#studentList").combobox({
+                width: "150",
+                height: "25",
+                valueField: "id",
+                textField: "username",
+                multiple: false, //可多选
+                editable: false, //不可编辑
+                method: "post",
+                url: [[@{/student/getStudentList(from=combox)}]],
+
+        });
+
+            //下拉框通用属性
+            $("#studentList").combobox({
+                width: "200",
+                height: "30",
+                valueField: "id",
+                textField: "username",
+                multiple: false, //不可多选
+                editable: false, //不可编辑
+                method: "post",
+            });
+
+
+            // $("#search-btn").click(function(){
+            //         $('#charts-div').load('load',{
+            //         studentid: $("#studentList").combobox('getValue') == '' ? 0 : $("#studentList").combobox('getValue'),
+            //
+            //     var studentId = $("#studentList").combobox('getValue');
+            //     if(studentId == null || studentId == ''){
+            //         $.messager.alert("消息提醒","！！！","info");
+            //         return;
+            //     }
+            //     $.ajax({
+            //         url:   [[@{/trace/getDynamicList}]] + "?studentId" + studentId
+            //         dataType:'json',
+            //         success:function(rst){
+            //         if(rst.type == "success"){
+            //             var option;
+            //                 option = {
+            //                     title: {
+            //                         text: '学生：'+rst.studentName
+            //                     },
+            //                     tooltip: {
+            //                         trigger: 'axis',
+            //                         axisPointer: {
+            //                             type: 'cross',
+            //                             crossStyle: {
+            //                                 color: '#999'
+            //                             }
+            //                         }
+            //                     },
+            //                     legend: {
+            //                         data:['成绩动态']
+            //                     },
+            //                     xAxis: {
+            //                         data: rst.rangeList
+            //                     },
+            //                     yAxis: {type: 'value'},
+            //                     series: [{
+            //                         name: '成绩动态',
+            //                         type: 'bar',
+            //                         data: rst.numberList
+            //                     }]
+            //                 };
+            //
+            //             }
+            //             showCharts(option);
+            //         }else{
+            //             $.messager.alert("消息提醒","获取数据出错!","info");
+            //         }
+            //     }
+            // )
+            // });
+            // });
+
+
+            //搜索按钮监听事件
+            $("#search-btn").click(function(){
+                $('#charts-div').load('load',{
+                    studentid: $("#studentList").combobox('getValue') == '' ? 0 : $("#studentList").combobox('getValue'),
+                });
+            })
+
+        });
+        /*]]>*/
+    </script>
+
+</head>
+<body>
+ <!--数据列表 -->
+<!--<table id="dataList" cellspacing="0" cellpadding="0"></table>-->
+<!-- 工具栏 -->
+ <div id="charts-div" style="width:100%;height:500px;">123</div>
+ <div id="toolbar" class="datagrid-toolbar" >
+    <div style="margin-top: 3px;">
+        按学生查看：<input id="studentList" class="easyui-textbox" name="studentList" />
+        <a id="search-btn" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-sum',plain:true">查看成绩动态</a>
+    </div>
+
+ </div>
+
+
+</body>
+
+<script type="text/javascript" th:src="@{/easyui/js/echarts.common.min.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('charts-div'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '成绩追踪'
+        },
+        tooltip: {},
+        legend: {
+            data:['张三']
+        },
+        xAxis: {
+            data: ["成绩1","成绩2","成绩3","成绩4","成绩5","成绩6"]
+        },
+        yAxis: {},
+        series: [{
+            name: '张三',
+            type: 'line',
+            data: [86, 55, 55, 77, 88, 99]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+</html>

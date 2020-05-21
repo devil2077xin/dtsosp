@@ -18,5 +18,8 @@ public interface ScoreService {
 
     int deleteScore(Integer id);
 
-    List<Score> getAll(Score score);
+    List<Score> getAll( );
+
+    public Score findDynamicTrace(int id);
+
 }

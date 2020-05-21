@@ -57,8 +57,12 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public List<Score> getAll(Score score) {
-        return scoreMapper.getAll(score);
+    public List<Score> getAll( ) {
+        return scoreMapper.getAll( );
     }
 
+    @Override
+    public Score findDynamicTrace(int id){
+        return scoreMapper.findDynamicTrace(id);
+    }
 }

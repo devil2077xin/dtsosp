@@ -53,12 +53,16 @@
         from t_score,t_student
         <where>
             t_score.student_id = t_student.id
-            <if test="studentId!=null and studentId != ''"> and student_id = #{studentId} </if>
         </where>
     </select>
 
-    <select id="findDynamicTrace" resultType="com.edu.dtsosp.mapper.ScoreMapper">
-            select * from t_score where id=#{id} order by id asc
+    <select id="findDynamicTrace" resultType="Score">
+        select  t_score.*,t_student.username as studentName
+        from t_score,t_student
+        <where>
+            t_score.student_id = t_student.id and id=#{id}
+        </where>
+
     </select>
 
 </mapper>
